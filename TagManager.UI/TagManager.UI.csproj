@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E5F838DF-F3D0-4BD4-B118-75F01F23BA00}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TagManager.UI</RootNamespace>
+    <AssemblyName>TagManager.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\UserMessages.cs" />
+    <Compile Include="Dialogs\FrmAddModifyAccessName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmAddModifyAccessName.Designer.cs">
+      <DependentUpon>FrmAddModifyAccessName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmAddModifyAlarmGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmAddModifyAlarmGroup.Designer.cs">
+      <DependentUpon>FrmAddModifyAlarmGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmManageAccessNames.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmManageAccessNames.Designer.cs">
+      <DependentUpon>FrmManageAccessNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmTagPartEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmTagPartEdit.Designer.cs">
+      <DependentUpon>FrmTagPartEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmManageAlarmGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmManageAlarmGroups.Designer.cs">
+      <DependentUpon>FrmManageAlarmGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmNewSuperTag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmNewSuperTag.Designer.cs">
+      <DependentUpon>FrmNewSuperTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmNewTag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmNewTag.Designer.cs">
+      <DependentUpon>FrmNewTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmRenameDuplicateItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmRenameDuplicateItem.Designer.cs">
+      <DependentUpon>FrmRenameDuplicateItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmImportProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmImportProgress.Designer.cs">
+      <DependentUpon>FrmImportProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AccessNamesListPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AccessNamesListPanel.Designer.cs">
+      <DependentUpon>AccessNamesListPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonPanels\ModifyButtonsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ButtonPanels\ModifyButtonsPanel.Designer.cs">
+      <DependentUpon>ModifyButtonsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonPanels\OkCancelButtonsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ButtonPanels\OkCancelButtonsPanel.Designer.cs">
+      <DependentUpon>OkCancelButtonsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagPartEditPanels\TagCommentEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagPartEditPanels\TagCommentEditPanel.Designer.cs">
+      <DependentUpon>TagCommentEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagPartEditPanels\ITagPartEditPanel.cs" />
+    <Compile Include="UserControls\TagEditorPanels\ITagEditorPanel.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\AlarmGroupTreeViewPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AlarmGroupTreeViewPanel.Designer.cs">
+      <DependentUpon>AlarmGroupTreeViewPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\AnalogPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\AnalogPanel.Designer.cs">
+      <DependentUpon>AnalogPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\CommonPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\CommonPanel.Designer.cs">
+      <DependentUpon>CommonPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\DiscretePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\DiscretePanel.Designer.cs">
+      <DependentUpon>DiscretePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\IoAnalogPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\IoAnalogPanel.Designer.cs">
+      <DependentUpon>IoAnalogPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\MsgPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\MsgPanel.Designer.cs">
+      <DependentUpon>MsgPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.Designer.cs">
+      <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoAnalogTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoAnalogTagPanel.Designer.cs">
+      <DependentUpon>IoAnalogTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\IoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\IoPanel.Designer.cs">
+      <DependentUpon>IoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagPartEditPanels\IoTagItemEditPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagPartEditPanels\IoTagItemEditPanel.Designer.cs">
+      <DependentUpon>IoTagItemEditPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoMsgTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoMsgTagPanel.Designer.cs">
+      <DependentUpon>IoMsgTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MembersPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MembersPanel.Designer.cs">
+      <DependentUpon>MembersPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.Designer.cs">
+      <DependentUpon>MemoryDiscreteTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.Designer.cs">
+      <DependentUpon>MemoryAnalogTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.Designer.cs">
+      <DependentUpon>MemoryMsgTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagPanel.Designer.cs">
+      <DependentUpon>TagPanel.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Dialogs\FrmAddModifyAccessName.resx">
+      <DependentUpon>FrmAddModifyAccessName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmAddModifyAlarmGroup.resx">
+      <DependentUpon>FrmAddModifyAlarmGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmManageAccessNames.resx">
+      <DependentUpon>FrmManageAccessNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmTagPartEdit.resx">
+      <DependentUpon>FrmTagPartEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmManageAlarmGroups.resx">
+      <DependentUpon>FrmManageAlarmGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmNewSuperTag.resx">
+      <DependentUpon>FrmNewSuperTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmNewTag.resx">
+      <DependentUpon>FrmNewTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmRenameDuplicateItem.resx">
+      <DependentUpon>FrmRenameDuplicateItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmImportProgress.resx">
+      <DependentUpon>FrmImportProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UserControls\AccessNamesListPanel.resx">
+      <DependentUpon>AccessNamesListPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AlarmGroupTreeViewPanel.resx">
+      <DependentUpon>AlarmGroupTreeViewPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\AnalogPanel.resx">
+      <DependentUpon>AnalogPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\CommonPanel.resx">
+      <DependentUpon>CommonPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\DiscretePanel.resx">
+      <DependentUpon>DiscretePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\IoAnalogPanel.resx">
+      <DependentUpon>IoAnalogPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\MsgPanel.resx">
+      <DependentUpon>MsgPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ButtonPanels\ModifyButtonsPanel.resx">
+      <DependentUpon>ModifyButtonsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ButtonPanels\OkCancelButtonsPanel.resx">
+      <DependentUpon>OkCancelButtonsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.resx">
+      <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\IoAnalogTagPanel.resx">
+      <DependentUpon>IoAnalogTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\IoPanel.resx">
+      <DependentUpon>IoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagPartEditPanels\TagCommentEditPanel.resx">
+      <DependentUpon>TagCommentEditPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagPartEditPanels\IoTagItemEditPanel.resx">
+      <DependentUpon>IoTagItemEditPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\IoMsgTagPanel.resx">
+      <DependentUpon>IoMsgTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MembersPanel.resx">
+      <DependentUpon>MembersPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.resx">
+      <DependentUpon>MemoryDiscreteTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.resx">
+      <DependentUpon>MemoryAnalogTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.resx">
+      <DependentUpon>MemoryMsgTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagPanel.resx">
+      <DependentUpon>TagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TagManager.Core\TagManager.Core.csproj">
+      <Project>{d1e1c705-f529-4a76-8013-528d753c24b5}</Project>
+      <Name>TagManager.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
