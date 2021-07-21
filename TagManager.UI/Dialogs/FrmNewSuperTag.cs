@@ -8,13 +8,59 @@ namespace TagManager.UI.Dialogs
 {
     public partial class FrmNewSuperTag : Form
     {
-        public FrmNewSuperTag(List<IListItem> listItems)
+        public FrmNewSuperTag(List<IListItem> listItems, List<SuperTagTemplate> templates)
         {
             InitializeComponent();
             items = listItems;
             tBoxName.Text = "NewSuperTag";
             AcceptButton = btnOk;
+            bsTemplates.DataSource = templates;
+            
+
+            cBoxTemplates.SelectedIndexChanged += CBoxTemplates_SelectedIndexChanged;
+            rBtnUseTemplate.CheckedChanged += RBtnUseTemplate_CheckedChanged;
+            rBtnEmpty.CheckedChanged += RBtnEmpty_CheckedChanged;
+
+            rBtnEmpty.Checked = true;
+
+            cBoxTemplates.DataSource = bsTemplates;
+            cBoxTemplates.DisplayMember = "DisplayName";
+            
         }
+
+        private void RBtnEmpty_CheckedChanged(object sender, EventArgs e)
+        {
+            btnOk.Enabled = true;
+            cBoxTemplates.Enabled = false;
+        }
+
+        private SuperTagTemplate selectedTemplate;
+
+        private void RBtnUseTemplate_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            cBoxTemplates.Enabled = rb.Checked;
+        }
+
+        private void CBoxTemplates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            if(cb.SelectedIndex > -1)
+            {
+                selectedTemplate = (SuperTagTemplate)cb.SelectedItem;
+                btnOk.Enabled = true;
+            }
+            else
+            {
+                selectedTemplate = null;
+                if (rBtnUseTemplate.Checked)
+                {
+                    btnOk.Enabled = false;
+                }
+            }
+        }
+
+        private BindingSource bsTemplates = new BindingSource();
 
         private List<IListItem> items;
 
@@ -43,7 +89,15 @@ namespace TagManager.UI.Dialogs
 
         private void CreateNewSuperTag(string name)
         {
-            NewSuperTag = new SuperTag() { Name = name };
+            if (rBtnEmpty.Checked)
+            {
+                NewSuperTag = new SuperTag() { Name = name };
+            }
+            else
+            {
+                NewSuperTag = selectedTemplate.GenerateSuperTag(name);
+            }
+
             items.Add(NewSuperTag as IListItem);
         }
 

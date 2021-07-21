@@ -8,34 +8,52 @@ namespace TagManager.Core.Models
     public class TagExporter
     {
         private List<IListItem> itemsForExport;
+
         private List<IoDiscreteTag> ioDiscreteTags = new List<IoDiscreteTag>();
-        private List<IoIntegerTag> ioIntegerTags = new List<IoIntegerTag>();
-        private List<IoRealTag> ioRealTags = new List<IoRealTag>();
+        //private List<IoIntegerTag> ioIntegerTags = new List<IoIntegerTag>();
+        private List<IoAnalogTag> ioIntegerTags = new List<IoAnalogTag>();
+        //private List<IoRealTag> ioRealTags = new List<IoRealTag>();
+        private List<IoAnalogTag> ioRealTags = new List<IoAnalogTag>();
         private List<IoMsgTag> ioMsgTags =  new List<IoMsgTag>();
+       
         private List<MemoryDiscreteTag> memoryDiscreteTags = new List<MemoryDiscreteTag>();
-        private List<MemoryIntegerTag> memoryIntegerTags = new List<MemoryIntegerTag>();
-        private List<MemoryRealTag> memoryRealTags = new List<MemoryRealTag>();
+        //private List<MemoryIntegerTag> memoryIntegerTags = new List<MemoryIntegerTag>();
+        private List<MemoryAnalogTag> memoryIntegerTags = new List<MemoryAnalogTag>();
+        //private List<MemoryRealTag> memoryRealTags = new List<MemoryRealTag>();
+        private List<MemoryAnalogTag> memoryRealTags = new List<MemoryAnalogTag>();
         private List<MemoryMsgTag> memoryMsgTags = new List<MemoryMsgTag>();
+        
+        private List<IndirectTag> indirectDiscreteTags = new List<IndirectTag>();
+        private List<IndirectTag> indirectAnalogTags = new List<IndirectTag>();
+        private List<IndirectTag> indirectMsgTags = new List<IndirectTag>();
 
         private void AssignTagToList(ITag tag)
         {
             if (tag is IoDiscreteTag)
                 ioDiscreteTags.Add(tag as IoDiscreteTag);
             if (tag is IoIntegerTag)
-                ioIntegerTags.Add(tag as IoIntegerTag);
+                ioIntegerTags.Add(tag as IoAnalogTag);
             if (tag is IoRealTag)
-                ioRealTags.Add(tag as IoRealTag);
+                ioRealTags.Add(tag as IoAnalogTag);
             if (tag is IoMsgTag)
                 ioMsgTags.Add(tag as IoMsgTag);
 
             if (tag is MemoryDiscreteTag)
                 memoryDiscreteTags.Add(tag as MemoryDiscreteTag);
             if (tag is MemoryIntegerTag)
-                memoryIntegerTags.Add(tag as MemoryIntegerTag);
+                memoryIntegerTags.Add(tag as MemoryAnalogTag);
             if (tag is MemoryRealTag)
-                memoryRealTags.Add(tag as MemoryRealTag);
+                memoryRealTags.Add(tag as MemoryAnalogTag);
             if (tag is MemoryMsgTag)
                 memoryMsgTags.Add(tag as MemoryMsgTag);
+
+            if (tag is IndirectDiscreteTag)
+                indirectDiscreteTags.Add(tag as IndirectTag);
+            if (tag is IndirectAnalogTag)
+                indirectAnalogTags.Add(tag as IndirectTag);
+            if (tag is IndirectMsgTag)
+                indirectMsgTags.Add(tag as IndirectTag);
+
         }
 
         public void Export(List<IListItem> items, List<AlarmGroup> alarmGroups, List<AccessName> accessNames, string filePath)
@@ -58,22 +76,35 @@ namespace TagManager.Core.Models
             allLines.Append(GetIoDiscreteLines());
 
             allLines.Append(Environment.NewLine);
-            allLines.Append(GetMemoryIntegerLines());
+            //allLines.Append(GetMemoryIntegerLines());
+            allLines.Append(GetMemoryAnalogLines(":MemoryInt", memoryIntegerTags));
 
             allLines.Append(Environment.NewLine);
-            allLines.Append(GetIoIntegerLines());
+            //allLines.Append(GetIoIntegerLines());
+            allLines.Append(GetIoAnalogLines(":IoInt", ioIntegerTags));
 
             allLines.Append(Environment.NewLine);
-            allLines.Append(GetMemoryRealLines());
+            //allLines.Append(GetMemoryRealLines());
+            allLines.Append(GetMemoryAnalogLines(":MemoryReal", memoryRealTags));
 
             allLines.Append(Environment.NewLine);
-            allLines.Append(GetIoRealLines());
+            //allLines.Append(GetIoRealLines());
+            allLines.Append(GetIoAnalogLines(":IoReal", ioRealTags));
 
             allLines.Append(Environment.NewLine);
             allLines.Append(GetMemoryMessageLines());
 
             allLines.Append(Environment.NewLine);
             allLines.Append(GetIoMessageLines());
+
+            allLines.Append(Environment.NewLine);
+            allLines.Append(GetIndirectLines(":IndirectDisc", indirectDiscreteTags));
+
+            allLines.Append(Environment.NewLine);
+            allLines.Append(GetIndirectLines(":IndirectAnalog", indirectAnalogTags));
+
+            allLines.Append(Environment.NewLine);
+            allLines.Append(GetIndirectLines(":IndirectMsg", indirectMsgTags));
 
 
             File.WriteAllText(filePath, allLines.ToString(), Encoding.GetEncoding("Windows-1251"));
@@ -90,6 +121,10 @@ namespace TagManager.Core.Models
             memoryIntegerTags.Clear();
             memoryRealTags.Clear();
             memoryMsgTags.Clear();
+
+            indirectDiscreteTags.Clear();
+            indirectAnalogTags.Clear();
+            indirectMsgTags.Clear();
         }
 
         private void PrepareTagsForExport(List<IListItem> items)
@@ -139,11 +174,11 @@ namespace TagManager.Core.Models
             return stringBuilder;
         }
 
-        private StringBuilder GetIoIntegerLines()
+        private StringBuilder GetIoAnalogLines(string sectionHeader, List<IoAnalogTag> tags)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(":IOInt;Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinEU;MaxEU;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;MinRaw;MaxRaw;Conversion;AccessName;ItemUseTagname;ItemName;ReadOnly;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName");
-            foreach(IoIntegerTag tag in ioIntegerTags)
+            stringBuilder.AppendLine($"{sectionHeader};Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinEU;MaxEU;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;MinRaw;MaxRaw;Conversion;AccessName;ItemUseTagname;ItemName;ReadOnly;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName");
+            foreach (IoAnalogTag tag in tags)
             {
                 stringBuilder.AppendLine(GetIoAnalogLine(tag));
             }
@@ -151,35 +186,12 @@ namespace TagManager.Core.Models
             return stringBuilder;
         }
 
-        private StringBuilder GetIoRealLines()
+
+        private StringBuilder GetMemoryAnalogLines(string sectionHeader, List<MemoryAnalogTag> tags)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(":IOReal;Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinEU;MaxEU;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;MinRaw;MaxRaw;Conversion;AccessName;ItemUseTagname;ItemName;ReadOnly;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName");
-            foreach (IoRealTag tag in ioRealTags)
-            {
-                stringBuilder.AppendLine(GetIoAnalogLine(tag));
-            }
-
-            return stringBuilder;
-        }
-
-        private StringBuilder GetMemoryIntegerLines()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(":MemoryInt;Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinValue;MaxValue;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName");
-            foreach (MemoryIntegerTag tag in memoryIntegerTags)
-            {
-                stringBuilder.AppendLine(GetMemoryAnalogLine(tag));
-            }
-
-            return stringBuilder;
-        }
-
-        private StringBuilder GetMemoryRealLines()
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(":MemoryReal;Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinValue;MaxValue;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName");
-            foreach (MemoryRealTag tag in memoryRealTags)
+            stringBuilder.AppendLine($"{sectionHeader};Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinValue;MaxValue;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName");
+            foreach (MemoryAnalogTag tag in tags)
             {
                 stringBuilder.AppendLine(GetMemoryAnalogLine(tag));
             }
@@ -212,6 +224,17 @@ namespace TagManager.Core.Models
         }
 
 
+        public StringBuilder GetIndirectLines(string sectionHeader, List<IndirectTag> tags)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"{sectionHeader};Group;Comment;EventLogged;EventLoggingPriority;RetentiveValue;SymbolicName");
+            foreach (IndirectTag tag in tags)
+            {
+                stringBuilder.AppendLine(GetIndirectLine(tag));
+            }
+
+            return stringBuilder;
+        }
 
 
         private string GetIoDiscreteLine(IoDiscreteTag tag)
@@ -308,6 +331,19 @@ namespace TagManager.Core.Models
 
             //:MemoryInt;Group;Comment;Logged;EventLogged;EventLoggingPriority;RetentiveValue;RetentiveAlarmParameters;AlarmValueDeadband;AlarmDevDeadband;EngUnits;InitialValue;MinValue;MaxValue;Deadband;LogDeadband;LoLoAlarmState;LoLoAlarmValue;LoLoAlarmPri;LoAlarmState;LoAlarmValue;LoAlarmPri;HiAlarmState;HiAlarmValue;HiAlarmPri;HiHiAlarmState;HiHiAlarmValue;HiHiAlarmPri;MinorDevAlarmState;MinorDevAlarmValue;MinorDevAlarmPri;MajorDevAlarmState;MajorDevAlarmValue;MajorDevAlarmPri;DevTarget;ROCAlarmState;ROCAlarmValue;ROCAlarmPri;ROCTimeBase;AlarmComment;AlarmAckModel;LoLoAlarmDisable;LoAlarmDisable;HiAlarmDisable;HiHiAlarmDisable;MinDevAlarmDisable;MajDevAlarmDisable;RocAlarmDisable;LoLoAlarmInhibitor;LoAlarmInhibitor;HiAlarmInhibitor;HiHiAlarmInhibitor;MinDevAlarmInhibitor;MajDevAlarmInhibitor;RocAlarmInhibitor;SymbolicName
             //"Mol_Route";"$System";"Направление слива мелассы";No;Yes;600;No;No;0;0;"";0;0;10;0;0;Off;0;1;Off;0;1;Off;0;1;Off;0;1;Off;0;1;Off;0;1;0;Off;0;1;Min;"";0;0;0;0;0;0;0;0;"";"";"";"";"";"";"";""
+        }
+
+
+        private string GetIndirectLine(IndirectTag tag)
+        {
+            return string.Format($"{tag.Common.Name.AddQuotes()};" + 
+                                 $"{tag.Common.Group.AddQuotes()};" +
+                                 $"{tag.Common.Comment.AddQuotes()};"+
+                                 $"{tag.Common.EventLogged.ToYesNoString()};" +
+                                 $"{tag.Common.EventLoggingPriority};" +
+                                 $"{tag.Common.RetentiveValue.ToYesNoString()};" +
+                                 $"{tag.SymbolicName}"
+                                 );
         }
 
 

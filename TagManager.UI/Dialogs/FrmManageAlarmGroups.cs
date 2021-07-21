@@ -112,10 +112,13 @@ namespace TagManager.UI.Dialogs
 
         private void AlarmGroupTreeViewSelectionChanged(object sender, EventArgs e)
         {
-            if (alarmGroupTreeViewPanel.SelectedAlarmGroup != null && alarmGroupTreeViewPanel.SelectedAlarmGroup.Name != "$System")
+            if (alarmGroupTreeViewPanel.SelectedAlarmGroup != null)
             {
-                modifyButtonsPanel.SetBtnModifyEnabled(true);
-                modifyButtonsPanel.SetBtnDeleteEnabled(true);
+                if (alarmGroupTreeViewPanel.SelectedAlarmGroup.Name != "$System")
+                {
+                    modifyButtonsPanel.SetBtnModifyEnabled(true);
+                    modifyButtonsPanel.SetBtnDeleteEnabled(true);
+                }
                 okCancelButtonsPanel.SetBtnOkEnabled(true);
             }
             else 

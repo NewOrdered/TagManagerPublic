@@ -46,6 +46,7 @@
     <Compile Include="Models\AccessNameManager.cs" />
     <Compile Include="Models\AlarmGroup.cs" />
     <Compile Include="Models\AlarmGroupManager.cs" />
+    <Compile Include="Models\Base\Abstract\IndirectTag.cs" />
     <Compile Include="Models\Base\Analog.cs" />
     <Compile Include="Models\Base\Common.cs" />
     <Compile Include="Models\Base\Discrete.cs" />
@@ -55,17 +56,23 @@
     <Compile Include="Models\Base\Memory.cs" />
     <Compile Include="Models\Base\Abstract\MemoryAnalogTag.cs" />
     <Compile Include="Models\Base\Msg.cs" />
-    <Compile Include="Models\ConsoleLogger.cs" />
+    <Compile Include="Models\Logger\ConsoleLogger.cs" />
     <Compile Include="Models\Enums\Enums.cs" />
     <Compile Include="Models\Interface\IIoTag.cs" />
     <Compile Include="Models\Interface\IListItem.cs" />
-    <Compile Include="Models\Interface\ILogger.cs" />
+    <Compile Include="Models\Logger\ILogger.cs" />
     <Compile Include="Models\Interface\ITag.cs" />
+    <Compile Include="Models\Serializer\ISerializer.cs" />
     <Compile Include="Models\ReturnResult.cs" />
+    <Compile Include="Models\Serializer\SingletonXmlSerializer.cs" />
     <Compile Include="Models\SuperTag.cs" />
+    <Compile Include="Models\SuperTagTemplate.cs" />
     <Compile Include="Models\TagExporter.cs" />
     <Compile Include="Models\TagImporter.cs" />
     <Compile Include="Models\TagStorage.cs" />
+    <Compile Include="Models\Tags\IndirectAnalogTag.cs" />
+    <Compile Include="Models\Tags\IndirectDiscreteTag.cs" />
+    <Compile Include="Models\Tags\IndirectMsgTag.cs" />
     <Compile Include="Models\Tags\IoDiscreteTag.cs" />
     <Compile Include="Models\Tags\IoIntegerTag.cs" />
     <Compile Include="Models\Tags\IoMsgTag.cs" />
@@ -74,7 +81,8 @@
     <Compile Include="Models\Tags\MemoryIntegerTag.cs" />
     <Compile Include="Models\Tags\MemoryMsgTag.cs" />
     <Compile Include="Models\Tags\MemoryRealTag.cs" />
-    <Compile Include="Models\TxtFileLogger.cs" />
+    <Compile Include="Models\TemplateManager.cs" />
+    <Compile Include="Models\Logger\TxtFileLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

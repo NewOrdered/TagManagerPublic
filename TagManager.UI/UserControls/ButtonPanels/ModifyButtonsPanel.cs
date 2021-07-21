@@ -25,6 +25,10 @@ namespace TagManager.UI.UserControls
             btnDelete.Enabled = enabled;
         }
         
+        public void SetAddButtonVisible(bool visible)
+        {
+            btnAdd.Visible = visible;
+        }
         
         
         protected void OnBtnCloseClicked()

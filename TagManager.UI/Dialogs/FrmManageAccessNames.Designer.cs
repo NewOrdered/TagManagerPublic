@@ -77,6 +77,7 @@ namespace TagManager.UI.Dialogs
             this.Name = "FrmManageAccessNames";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Access Names";
             this.Load += new System.EventHandler(this.FrmManageAccessNames_Load);
             this.ResumeLayout(false);

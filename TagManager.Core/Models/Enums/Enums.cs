@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace TagManager.Core.Models
 {
@@ -25,7 +21,10 @@ namespace TagManager.Core.Models
         MemoryInt,
         MemoryDisc,
         MemoryReal,
-        MemoryMsg
+        MemoryMsg,
+        IndirectDisc,
+        IndirectAnalog,
+        IndirectMsg
     }
 
     public enum DDEProtocol
@@ -33,5 +32,12 @@ namespace TagManager.Core.Models
         No,
         Yes,
         MX
+    }
+
+    public enum IndirectType
+    {
+        Discrete,
+        Analog,
+        Msg
     }
 }

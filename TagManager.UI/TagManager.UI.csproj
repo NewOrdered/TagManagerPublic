@@ -63,11 +63,23 @@
     <Compile Include="Dialogs\FrmAddModifyAlarmGroup.Designer.cs">
       <DependentUpon>FrmAddModifyAlarmGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\FrmAddModifySuperTagTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmAddModifySuperTagTemplate.Designer.cs">
+      <DependentUpon>FrmAddModifySuperTagTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\FrmManageAccessNames.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\FrmManageAccessNames.Designer.cs">
       <DependentUpon>FrmManageAccessNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FrmManageTemplates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmManageTemplates.Designer.cs">
+      <DependentUpon>FrmManageTemplates.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\FrmTagPartEdit.cs">
       <SubType>Form</SubType>
@@ -128,6 +140,18 @@
     </Compile>
     <Compile Include="UserControls\ButtonPanels\OkCancelButtonsPanel.Designer.cs">
       <DependentUpon>OkCancelButtonsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Base\IndirectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Base\IndirectPanel.Designer.cs">
+      <DependentUpon>IndirectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IndirectTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IndirectTagPanel.Designer.cs">
+      <DependentUpon>IndirectTagPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TagPartEditPanels\TagCommentEditPanel.cs">
       <SubType>UserControl</SubType>
@@ -241,8 +265,14 @@
     <EmbeddedResource Include="Dialogs\FrmAddModifyAlarmGroup.resx">
       <DependentUpon>FrmAddModifyAlarmGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmAddModifySuperTagTemplate.resx">
+      <DependentUpon>FrmAddModifySuperTagTemplate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FrmManageAccessNames.resx">
       <DependentUpon>FrmManageAccessNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmManageTemplates.resx">
+      <DependentUpon>FrmManageTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FrmTagPartEdit.resx">
       <DependentUpon>FrmTagPartEdit.cs</DependentUpon>
@@ -302,6 +332,12 @@
     <EmbeddedResource Include="UserControls\ButtonPanels\OkCancelButtonsPanel.resx">
       <DependentUpon>OkCancelButtonsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Base\IndirectPanel.resx">
+      <DependentUpon>IndirectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\IndirectTagPanel.resx">
+      <DependentUpon>IndirectTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.resx">
       <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -355,6 +391,8 @@
       <Name>TagManager.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Icons\folder.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

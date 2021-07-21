@@ -34,9 +34,9 @@ namespace TagManager.UI.Dialogs
             this.tBoxName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gBoxParameters = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.rBtnUseTemplate = new System.Windows.Forms.RadioButton();
+            this.rBtnEmpty = new System.Windows.Forms.RadioButton();
+            this.cBoxTemplates = new System.Windows.Forms.ComboBox();
             this.gBoxParameters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,47 +80,52 @@ namespace TagManager.UI.Dialogs
             // 
             // gBoxParameters
             // 
-            this.gBoxParameters.Controls.Add(this.label3);
-            this.gBoxParameters.Controls.Add(this.label2);
-            this.gBoxParameters.Controls.Add(this.comboBox1);
+            this.gBoxParameters.Controls.Add(this.rBtnUseTemplate);
+            this.gBoxParameters.Controls.Add(this.rBtnEmpty);
+            this.gBoxParameters.Controls.Add(this.cBoxTemplates);
             this.gBoxParameters.Location = new System.Drawing.Point(16, 40);
             this.gBoxParameters.Name = "gBoxParameters";
-            this.gBoxParameters.Size = new System.Drawing.Size(280, 121);
+            this.gBoxParameters.Size = new System.Drawing.Size(280, 111);
             this.gBoxParameters.TabIndex = 9;
             this.gBoxParameters.TabStop = false;
             this.gBoxParameters.Text = "Parameters";
             // 
-            // comboBox1
+            // rBtnUseTemplate
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 54);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(137, 24);
-            this.comboBox1.TabIndex = 10;
+            this.rBtnUseTemplate.AutoSize = true;
+            this.rBtnUseTemplate.Location = new System.Drawing.Point(19, 47);
+            this.rBtnUseTemplate.Name = "rBtnUseTemplate";
+            this.rBtnUseTemplate.Size = new System.Drawing.Size(109, 20);
+            this.rBtnUseTemplate.TabIndex = 12;
+            this.rBtnUseTemplate.TabStop = true;
+            this.rBtnUseTemplate.Text = "Use template:";
+            this.rBtnUseTemplate.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // rBtnEmpty
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 16);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Template";
+            this.rBtnEmpty.AutoSize = true;
+            this.rBtnEmpty.Location = new System.Drawing.Point(19, 21);
+            this.rBtnEmpty.Name = "rBtnEmpty";
+            this.rBtnEmpty.Size = new System.Drawing.Size(64, 20);
+            this.rBtnEmpty.TabIndex = 11;
+            this.rBtnEmpty.TabStop = true;
+            this.rBtnEmpty.Text = "Empty";
+            this.rBtnEmpty.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // cBoxTemplates
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(182, 18);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 16);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Parameters";
+            this.cBoxTemplates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxTemplates.FormattingEnabled = true;
+            this.cBoxTemplates.Location = new System.Drawing.Point(19, 73);
+            this.cBoxTemplates.Name = "cBoxTemplates";
+            this.cBoxTemplates.Size = new System.Drawing.Size(202, 24);
+            this.cBoxTemplates.TabIndex = 10;
             // 
             // FrmNewSuperTag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 173);
+            this.ClientSize = new System.Drawing.Size(427, 161);
             this.Controls.Add(this.gBoxParameters);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -128,12 +133,13 @@ namespace TagManager.UI.Dialogs
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmNewSuperTag";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New Super Tag";
             this.gBoxParameters.ResumeLayout(false);
@@ -150,8 +156,8 @@ namespace TagManager.UI.Dialogs
         private System.Windows.Forms.TextBox tBoxName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gBoxParameters;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cBoxTemplates;
+        private System.Windows.Forms.RadioButton rBtnUseTemplate;
+        private System.Windows.Forms.RadioButton rBtnEmpty;
     }
 }

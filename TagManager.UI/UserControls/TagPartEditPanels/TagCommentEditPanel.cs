@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using TagManager.UI.Dialogs;
 using TagManager.Core.Models;
+using System.Drawing;
 
 namespace TagManager.UI.UserControls
 {
@@ -39,15 +40,15 @@ namespace TagManager.UI.UserControls
         private AlarmGroupManager alarmGroupManager;
 
 
-        public void Build(ITag tag)
+        public void Build(ITag tag, Image tagIcon)
         {
             ITag = tag;
 
             lblTagName.Text = ITag.Common.Name;
-            lblTagType.Text = ITag.Type;
+            //lblTagType.Text = ITag.Type;
             tBoxAlarmComment.Text = ITag.Common.AlarmComment;
             btnAlarmGroup.Text = ITag.Common.Group;
-
+            pBoxTagTypeIcon.Image = tagIcon;
             tBoxAlarmComment.TextChanged += TBoxAlarmComment_TextChanged;
             btnAlarmGroup.TextChanged += BtnAlarmGroup_TextChanged;
         }

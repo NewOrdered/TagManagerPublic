@@ -43,8 +43,8 @@ namespace TagManager.UI.UserControls
 
         private void ListViewAccessNames_SelectionChanged(object sender, EventArgs e)
         {
-            BrightIdeasSoftware.ObjectListView olv = sender as BrightIdeasSoftware.ObjectListView;
-            SelectedAccessName = olv.SelectedObject as AccessName; // null if no selection
+            BrightIdeasSoftware.DataListView dlv = sender as BrightIdeasSoftware.DataListView;
+            SelectedAccessName = dlv.SelectedObject as AccessName; // null if no selection
             OnSelectionChanged();
         }
         

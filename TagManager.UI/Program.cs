@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using TagManager.Core.Models;
@@ -20,6 +18,8 @@ namespace TagManager.UI
 
             //ILogger logger = new ConsoleLogger();
             ILogger logger = new TxtFileLogger();
+            ISerializer<List<SuperTagTemplate>> serializer = SingletonXmlSerializer<List<SuperTagTemplate>>.Instance;
+            TemplateManager templateManager = new TemplateManager(serializer);
             AccessNameManager accessNameManager = new AccessNameManager();
             AlarmGroupManager alarmGroupManager = new AlarmGroupManager();
             TagImporter tagImporter = new TagImporter(logger);
@@ -28,7 +28,7 @@ namespace TagManager.UI
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain(tagStorage));
+            Application.Run(new FrmMain(tagStorage, templateManager));
         }
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

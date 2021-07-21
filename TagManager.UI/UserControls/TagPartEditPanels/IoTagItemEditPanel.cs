@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using TagManager.UI.Dialogs;
 using TagManager.Core.Models;
+using System.Drawing;
 
 namespace TagManager.UI.UserControls
 {
@@ -43,15 +44,15 @@ namespace TagManager.UI.UserControls
         public IIoTag IoTag;
         private AccessNameManager accessNameManager;
 
-        public void Build(ITag tag)
+        public void Build(ITag tag, Image tagIcon)
         {
             IoTag = tag as IIoTag;
 
             lblTagName.Text = IoTag.Common.Name;
-            lblTagType.Text = IoTag.Type;
+            //lblTagType.Text = IoTag.Type;
             tBoxItemName.Text = IoTag.Io.ItemName;
             btnAccessName.Text = IoTag.Io.AccessName;
-
+            pBoxTagTypeIcon.Image = tagIcon;
 
 
             tBoxItemName.TextChanged += TBoxItemName_TextChanged;

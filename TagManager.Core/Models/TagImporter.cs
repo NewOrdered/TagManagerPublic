@@ -2,10 +2,8 @@
 using System.Globalization;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
+
 
 namespace TagManager.Core.Models
 {
@@ -145,12 +143,7 @@ namespace TagManager.Core.Models
 
                         switch (sectionHeader)
                         {
-                            case SectionHeader.None:
-                                break;
-
-                            case SectionHeader.Other:
-                                otherLines.Add(lines[i]);
-                                break;
+                            
 
                             case SectionHeader.IOAccess:
                                 ParseAccessNameFields(fields);
@@ -190,6 +183,25 @@ namespace TagManager.Core.Models
 
                             case SectionHeader.MemoryMsg:
                                 ParseMemoryMsgFields(fields);
+                                break;
+
+                            case SectionHeader.IndirectDisc:
+                                ParseIndirectDiscreteFields(fields);
+                                break;
+
+                            case SectionHeader.IndirectAnalog:
+                                ParseIndirectAnalogFields(fields);
+                                break;
+
+                            case SectionHeader.IndirectMsg:
+                                ParseIndirectMsgFields(fields);
+                                break;
+
+                            case SectionHeader.None:
+                                break;
+
+                            case SectionHeader.Other:
+                                otherLines.Add(lines[i]);
                                 break;
 
                         }
@@ -336,6 +348,54 @@ namespace TagManager.Core.Models
             {
                 LogLineError("Line is not a valid Memory Message tag record. Skipping line.");
                 //line is not valid Memory Message tag record, log and skip
+            }
+        }
+
+        private void ParseIndirectDiscreteFields(string[] fields)
+        {
+            if(fields.Length >=6)
+            {
+                //IndirectDiscreteTag tag = GetIndirectDiscreteTag(fields);
+                IndirectDiscreteTag tag = new IndirectDiscreteTag();
+                GetIndirectTag(fields, tag);
+                AddItem(tag, fields[0]);
+            }
+            else
+            {
+                LogLineError("Line is not a valid Indirect tag record. Skipping line.");
+                //line is not valid Indirect tag record, log and skip
+            }
+        }
+
+        private void ParseIndirectAnalogFields(string[] fields)
+        {
+            if (fields.Length >= 6)
+            {
+                //IndirectAnalogTag tag = GetIndirectAnalogTag(fields);
+                IndirectAnalogTag tag = new IndirectAnalogTag();
+                GetIndirectTag(fields, tag);
+                AddItem(tag, fields[0]);
+            }
+            else
+            {
+                LogLineError("Line is not a valid Indirect tag record. Skipping line.");
+                //line is not valid Indirect tag record, log and skip
+            }
+        }
+
+        private void ParseIndirectMsgFields(string[] fields)
+        {
+            if (fields.Length >= 6)
+            {
+                //IndirectMsgTag tag = GetIndirectMsgTag(fields);
+                IndirectMsgTag tag = new IndirectMsgTag();
+                GetIndirectTag(fields, tag);
+                AddItem(tag, fields[0]);
+            }
+            else
+            {
+                LogLineError("Line is not a valid Indirect tag record. Skipping line.");
+                //line is not valid Indirect tag record, log and skip
             }
         }
 
@@ -600,12 +660,84 @@ namespace TagManager.Core.Models
             };
         }
 
+        //private IndirectDiscreteTag GetIndirectDiscreteTag(string[] fields)
+        //{
+        //    IndirectDiscreteTag indirect = new IndirectDiscreteTag();
+
+        //    indirect.Common.Name = fields[0];
+        //    indirect.Common.Group = fields[1];
+        //    indirect.Common.Comment = fields[2];
+        //    indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
+        //    indirect.Common.EventLoggingPriority = GetInt(fields[4]);
+        //    indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
+        //    indirect.SymbolicName = fields[6];
+
+
+        //    return indirect;
+        //}
+
+        //private IndirectAnalogTag GetIndirectAnalogTag(string[] fields)
+        //{
+        //    IndirectAnalogTag indirect = new IndirectAnalogTag();
+
+        //    indirect.Common.Name = fields[0];
+        //    indirect.Common.Group = fields[1];
+        //    indirect.Common.Comment = fields[2];
+        //    indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
+        //    indirect.Common.EventLoggingPriority = GetInt(fields[4]);
+        //    indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
+        //    indirect.SymbolicName = fields[6];
+
+
+        //    return indirect;
+        //}
+
+        //private IndirectMsgTag GetIndirectMsgTag(string[] fields)
+        //{
+        //    IndirectMsgTag indirect = new IndirectMsgTag();
+
+        //    indirect.Common.Name = fields[0];
+        //    indirect.Common.Group = fields[1];
+        //    indirect.Common.Comment = fields[2];
+        //    indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
+        //    indirect.Common.EventLoggingPriority = GetInt(fields[4]);
+        //    indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
+        //    indirect.SymbolicName = fields[6];
+
+        //    return indirect;
+        //}
+
+        private void GetIndirectTag(string[] fields, IndirectTag indirect)
+        {
+            string group = fields[1];
+            if (string.IsNullOrWhiteSpace(group))
+            {
+                group = "$System";
+            }
+
+            indirect.Common.Name = fields[0];
+            indirect.Common.Group = group; // fields[1];
+            indirect.Common.Comment = fields[2];
+            indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
+            indirect.Common.EventLoggingPriority = GetInt(fields[4]);
+            indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
+            indirect.SymbolicName = fields[6];
+
+            
+        }
+
         private Common GetCommon(string [] fields, string alarmComment)
         {
+            string group = fields[1];
+            if(string.IsNullOrWhiteSpace(group))
+            {
+                group = "$System";
+            }
+
             return new Common()
             {
                 Name = fields[0],
-                Group = fields[1],
+                Group = group, //fields[1],
                 Comment = fields[2],
                 Logged = GetBoolFromYesNoString(fields[3]),
                 EventLogged = GetBoolFromYesNoString(fields[4]),
@@ -715,6 +847,18 @@ namespace TagManager.Core.Models
 
                 case ":MemoryMsg":
                     result = SectionHeader.MemoryMsg;
+                    break;
+
+                case ":IndirectDisc":
+                    result = SectionHeader.IndirectDisc;
+                    break;
+
+                case ":IndirectAnalog":
+                    result = SectionHeader.IndirectAnalog;
+                    break;
+
+                case ":IndirectMsg":
+                    result = SectionHeader.IndirectMsg;
                     break;
 
                 case ":":

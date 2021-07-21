@@ -25,7 +25,7 @@ namespace TagManager.UI.UserControls
             numUpDownPriority.Visible = checkbox.Checked;
         }
 
-        public Common Common;
+        public Common Common { get; private set; }
         private AlarmGroupManager alarmGroupManager;
         private List<IListItem> items;
 

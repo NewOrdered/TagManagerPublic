@@ -38,6 +38,7 @@ namespace TagManager.UI.Dialogs
             this.label4 = new System.Windows.Forms.Label();
             this.tBoxTopicName = new System.Windows.Forms.TextBox();
             this.gBoxProtocol = new System.Windows.Forms.GroupBox();
+            this.rBtnMessageExchange = new System.Windows.Forms.RadioButton();
             this.rBtnSuiteLink = new System.Windows.Forms.RadioButton();
             this.rBtnDDE = new System.Windows.Forms.RadioButton();
             this.gBoxAdvise = new System.Windows.Forms.GroupBox();
@@ -45,7 +46,6 @@ namespace TagManager.UI.Dialogs
             this.rBtnAdviseAllItems = new System.Windows.Forms.RadioButton();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.rBtnMessageExchange = new System.Windows.Forms.RadioButton();
             this.gBoxProtocol.SuspendLayout();
             this.gBoxAdvise.SuspendLayout();
             this.SuspendLayout();
@@ -134,6 +134,17 @@ namespace TagManager.UI.Dialogs
             this.gBoxProtocol.TabStop = false;
             this.gBoxProtocol.Text = "Which protocol to use";
             // 
+            // rBtnMessageExchange
+            // 
+            this.rBtnMessageExchange.AutoSize = true;
+            this.rBtnMessageExchange.Location = new System.Drawing.Point(191, 21);
+            this.rBtnMessageExchange.Name = "rBtnMessageExchange";
+            this.rBtnMessageExchange.Size = new System.Drawing.Size(146, 20);
+            this.rBtnMessageExchange.TabIndex = 2;
+            this.rBtnMessageExchange.TabStop = true;
+            this.rBtnMessageExchange.Text = "Message Exchange";
+            this.rBtnMessageExchange.UseVisualStyleBackColor = true;
+            // 
             // rBtnSuiteLink
             // 
             this.rBtnSuiteLink.AutoSize = true;
@@ -209,17 +220,6 @@ namespace TagManager.UI.Dialogs
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // rBtnMessageExchange
-            // 
-            this.rBtnMessageExchange.AutoSize = true;
-            this.rBtnMessageExchange.Location = new System.Drawing.Point(191, 21);
-            this.rBtnMessageExchange.Name = "rBtnMessageExchange";
-            this.rBtnMessageExchange.Size = new System.Drawing.Size(146, 20);
-            this.rBtnMessageExchange.TabIndex = 2;
-            this.rBtnMessageExchange.TabStop = true;
-            this.rBtnMessageExchange.Text = "Message Exchange";
-            this.rBtnMessageExchange.UseVisualStyleBackColor = true;
-            // 
             // FrmAddModifyAccessName
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -245,6 +245,7 @@ namespace TagManager.UI.Dialogs
             this.Name = "FrmAddModifyAccessName";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "< Add / Modify Access Name >";
             this.gBoxProtocol.ResumeLayout(false);
             this.gBoxProtocol.PerformLayout();

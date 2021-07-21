@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.pnEditor = new System.Windows.Forms.Panel();
             this.dataListViewAllTags = new BrightIdeasSoftware.DataListView();
             this.nameColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.typeColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.commentColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.tagIcons = new System.Windows.Forms.ImageList(this.components);
             this.dataListViewMembers = new BrightIdeasSoftware.DataListView();
-            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.memberNameColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.memberTypeColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.memberCommentColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.lblSelectedSuperTagName = new System.Windows.Forms.Label();
             this.gBoxMembers = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -55,10 +57,11 @@
             this.tStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.lblTotalItemsCount = new System.Windows.Forms.Label();
             this.btnDuplicateItem = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.cMenuStripSelectedSuperTag = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tStripMenuSuperTagRename = new System.Windows.Forms.ToolStripMenuItem();
             this.tStripMenuSuperTagDuplicate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tStripMenuSuperTagCreateTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tStripMenuSuperTagCreateIndirect = new System.Windows.Forms.ToolStripMenuItem();
             this.tStripMenuSuperTagDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.cMenuStripMultipleObjects = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tStripMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,13 +71,14 @@
             this.toolStripMenuIExport = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuSpecial = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuAlarmGroups = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuAccessNames = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuTemplates = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnNewItem = new System.Windows.Forms.Button();
             this.btnNewSuperTag = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.toolStripMenuAccessNames = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataListViewAllTags)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataListViewMembers)).BeginInit();
             this.gBoxMembers.SuspendLayout();
@@ -124,6 +128,7 @@
             this.dataListViewAllTags.ShowCommandMenuOnRightClick = true;
             this.dataListViewAllTags.ShowGroups = false;
             this.dataListViewAllTags.Size = new System.Drawing.Size(671, 684);
+            this.dataListViewAllTags.SmallImageList = this.tagIcons;
             this.dataListViewAllTags.TabIndex = 6;
             this.dataListViewAllTags.UseCompatibleStateImageBehavior = false;
             this.dataListViewAllTags.UseHotItem = true;
@@ -148,17 +153,28 @@
             this.commentColumn.Text = "Comment";
             this.commentColumn.Width = 299;
             // 
+            // tagIcons
+            // 
+            this.tagIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tagIcons.ImageStream")));
+            this.tagIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.tagIcons.Images.SetKeyName(0, "bool");
+            this.tagIcons.Images.SetKeyName(1, "folder");
+            this.tagIcons.Images.SetKeyName(2, "integer");
+            this.tagIcons.Images.SetKeyName(3, "msg");
+            this.tagIcons.Images.SetKeyName(4, "real");
+            this.tagIcons.Images.SetKeyName(5, "link");
+            // 
             // dataListViewMembers
             // 
-            this.dataListViewMembers.AllColumns.Add(this.olvColumn1);
-            this.dataListViewMembers.AllColumns.Add(this.olvColumn2);
-            this.dataListViewMembers.AllColumns.Add(this.olvColumn3);
+            this.dataListViewMembers.AllColumns.Add(this.memberNameColumn);
+            this.dataListViewMembers.AllColumns.Add(this.memberTypeColumn);
+            this.dataListViewMembers.AllColumns.Add(this.memberCommentColumn);
             this.dataListViewMembers.AutoGenerateColumns = false;
             this.dataListViewMembers.CellEditUseWholeCell = false;
             this.dataListViewMembers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColumn1,
-            this.olvColumn2,
-            this.olvColumn3});
+            this.memberNameColumn,
+            this.memberTypeColumn,
+            this.memberCommentColumn});
             this.dataListViewMembers.Cursor = System.Windows.Forms.Cursors.Default;
             this.dataListViewMembers.DataSource = null;
             this.dataListViewMembers.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -173,25 +189,26 @@
             this.dataListViewMembers.ShowHeaderInAllViews = false;
             this.dataListViewMembers.ShowItemToolTips = true;
             this.dataListViewMembers.Size = new System.Drawing.Size(377, 264);
+            this.dataListViewMembers.SmallImageList = this.tagIcons;
             this.dataListViewMembers.TabIndex = 8;
             this.dataListViewMembers.UseCompatibleStateImageBehavior = false;
             this.dataListViewMembers.UseHotItem = true;
             this.dataListViewMembers.View = System.Windows.Forms.View.Details;
             // 
-            // olvColumn1
+            // memberNameColumn
             // 
-            this.olvColumn1.AspectName = "Name";
-            this.olvColumn1.Width = 150;
+            this.memberNameColumn.AspectName = "Name";
+            this.memberNameColumn.Width = 150;
             // 
-            // olvColumn2
+            // memberTypeColumn
             // 
-            this.olvColumn2.AspectName = "Type";
-            this.olvColumn2.Width = 120;
+            this.memberTypeColumn.AspectName = "Type";
+            this.memberTypeColumn.Width = 120;
             // 
-            // olvColumn3
+            // memberCommentColumn
             // 
-            this.olvColumn3.AspectName = "Comment";
-            this.olvColumn3.FillsFreeSpace = true;
+            this.memberCommentColumn.AspectName = "Comment";
+            this.memberCommentColumn.FillsFreeSpace = true;
             // 
             // lblSelectedSuperTagName
             // 
@@ -386,39 +403,49 @@
             this.btnDuplicateItem.UseVisualStyleBackColor = true;
             this.btnDuplicateItem.Click += new System.EventHandler(this.btnDuplicateItem_Click);
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // cMenuStripSelectedSuperTag
             // 
             this.cMenuStripSelectedSuperTag.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tStripMenuSuperTagRename,
             this.tStripMenuSuperTagDuplicate,
+            this.tStripMenuSuperTagCreateTemplate,
+            this.tStripMenuSuperTagCreateIndirect,
             this.tStripMenuSuperTagDelete});
             this.cMenuStripSelectedSuperTag.Name = "cMenuStripSelectedSuperTag";
-            this.cMenuStripSelectedSuperTag.Size = new System.Drawing.Size(125, 70);
+            this.cMenuStripSelectedSuperTag.Size = new System.Drawing.Size(171, 114);
             // 
             // tStripMenuSuperTagRename
             // 
             this.tStripMenuSuperTagRename.Name = "tStripMenuSuperTagRename";
-            this.tStripMenuSuperTagRename.Size = new System.Drawing.Size(124, 22);
+            this.tStripMenuSuperTagRename.Size = new System.Drawing.Size(170, 22);
             this.tStripMenuSuperTagRename.Text = "Rename";
             this.tStripMenuSuperTagRename.Click += new System.EventHandler(this.tStripMenuSuperTagRename_Click);
             // 
             // tStripMenuSuperTagDuplicate
             // 
             this.tStripMenuSuperTagDuplicate.Name = "tStripMenuSuperTagDuplicate";
-            this.tStripMenuSuperTagDuplicate.Size = new System.Drawing.Size(124, 22);
+            this.tStripMenuSuperTagDuplicate.Size = new System.Drawing.Size(170, 22);
             this.tStripMenuSuperTagDuplicate.Text = "Duplicate";
             this.tStripMenuSuperTagDuplicate.Click += new System.EventHandler(this.tStripMenuSuperTagDuplicate_Click);
+            // 
+            // tStripMenuSuperTagCreateTemplate
+            // 
+            this.tStripMenuSuperTagCreateTemplate.Name = "tStripMenuSuperTagCreateTemplate";
+            this.tStripMenuSuperTagCreateTemplate.Size = new System.Drawing.Size(170, 22);
+            this.tStripMenuSuperTagCreateTemplate.Text = "Create Template...";
+            this.tStripMenuSuperTagCreateTemplate.Click += new System.EventHandler(this.tStripMenuSuperTagCreateTemplate_Click);
+            // 
+            // tStripMenuSuperTagCreateIndirect
+            // 
+            this.tStripMenuSuperTagCreateIndirect.Name = "tStripMenuSuperTagCreateIndirect";
+            this.tStripMenuSuperTagCreateIndirect.Size = new System.Drawing.Size(170, 22);
+            this.tStripMenuSuperTagCreateIndirect.Text = "Create Indirect...";
+            this.tStripMenuSuperTagCreateIndirect.Click += new System.EventHandler(this.tStripMenuSuperTagCreateIndirect_Click);
             // 
             // tStripMenuSuperTagDelete
             // 
             this.tStripMenuSuperTagDelete.Name = "tStripMenuSuperTagDelete";
-            this.tStripMenuSuperTagDelete.Size = new System.Drawing.Size(124, 22);
+            this.tStripMenuSuperTagDelete.Size = new System.Drawing.Size(170, 22);
             this.tStripMenuSuperTagDelete.Text = "Delete";
             this.tStripMenuSuperTagDelete.Click += new System.EventHandler(this.tStripMenuSuperTagDelete_Click);
             // 
@@ -476,7 +503,8 @@
             // 
             this.toolStripMenuSpecial.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuAlarmGroups,
-            this.toolStripMenuAccessNames});
+            this.toolStripMenuAccessNames,
+            this.toolStripMenuTemplates});
             this.toolStripMenuSpecial.Name = "toolStripMenuSpecial";
             this.toolStripMenuSpecial.Size = new System.Drawing.Size(66, 20);
             this.toolStripMenuSpecial.Text = "Special";
@@ -484,9 +512,23 @@
             // toolStripMenuAlarmGroups
             // 
             this.toolStripMenuAlarmGroups.Name = "toolStripMenuAlarmGroups";
-            this.toolStripMenuAlarmGroups.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuAlarmGroups.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuAlarmGroups.Text = "Alarm Groups...";
             this.toolStripMenuAlarmGroups.Click += new System.EventHandler(this.toolStripMenuAlarmGroups_Click);
+            // 
+            // toolStripMenuAccessNames
+            // 
+            this.toolStripMenuAccessNames.Name = "toolStripMenuAccessNames";
+            this.toolStripMenuAccessNames.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuAccessNames.Text = "Access Names...";
+            this.toolStripMenuAccessNames.Click += new System.EventHandler(this.toolStripMenuAccessNames_Click);
+            // 
+            // toolStripMenuTemplates
+            // 
+            this.toolStripMenuTemplates.Name = "toolStripMenuTemplates";
+            this.toolStripMenuTemplates.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuTemplates.Text = "Templates...";
+            this.toolStripMenuTemplates.Click += new System.EventHandler(this.toolStripMenuTemplates_Click);
             // 
             // btnDeleteItem
             // 
@@ -566,13 +608,6 @@
             this.panel2.Size = new System.Drawing.Size(513, 323);
             this.panel2.TabIndex = 1;
             // 
-            // toolStripMenuAccessNames
-            // 
-            this.toolStripMenuAccessNames.Name = "toolStripMenuAccessNames";
-            this.toolStripMenuAccessNames.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuAccessNames.Text = "Access Names...";
-            this.toolStripMenuAccessNames.Click += new System.EventHandler(this.toolStripMenuAccessNames_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -614,8 +649,8 @@
         private BrightIdeasSoftware.OLVColumn typeColumn;
         private BrightIdeasSoftware.OLVColumn commentColumn;
         private BrightIdeasSoftware.DataListView dataListViewMembers;
-        private BrightIdeasSoftware.OLVColumn olvColumn1;
-        private BrightIdeasSoftware.OLVColumn olvColumn2;
+        private BrightIdeasSoftware.OLVColumn memberNameColumn;
+        private BrightIdeasSoftware.OLVColumn memberTypeColumn;
         private System.Windows.Forms.Label lblSelectedSuperTagName;
         private System.Windows.Forms.GroupBox gBoxMembers;
         private System.Windows.Forms.ContextMenuStrip cMenuStripSelectedObject;
@@ -625,7 +660,7 @@
         private System.Windows.Forms.Label lblMembersCount;
         private System.Windows.Forms.Button btnDuplicateMember;
         private System.Windows.Forms.Button btnDuplicateItem;
-        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ImageList tagIcons;
         private System.Windows.Forms.ContextMenuStrip cMenuStripSelectedSuperTag;
         private System.Windows.Forms.ToolStripMenuItem tStripMenuSuperTagRename;
         private System.Windows.Forms.ToolStripMenuItem tStripMenuSuperTagDuplicate;
@@ -636,7 +671,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuFile;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuSpecial;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuAlarmGroups;
-        private BrightIdeasSoftware.OLVColumn olvColumn3;
+        private BrightIdeasSoftware.OLVColumn memberCommentColumn;
         private System.Windows.Forms.ToolStripMenuItem tStripMenuImport;
         private System.Windows.Forms.Button btnDeleteMember;
         private System.Windows.Forms.Button btnDeleteItem;
@@ -654,6 +689,9 @@
         private System.Windows.Forms.Button btnEditComments;
         private System.Windows.Forms.Button btnCopyComments;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuAccessNames;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuTemplates;
+        private System.Windows.Forms.ToolStripMenuItem tStripMenuSuperTagCreateTemplate;
+        private System.Windows.Forms.ToolStripMenuItem tStripMenuSuperTagCreateIndirect;
     }
 }
 

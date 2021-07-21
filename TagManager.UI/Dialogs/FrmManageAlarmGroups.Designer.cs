@@ -39,7 +39,7 @@ namespace TagManager.UI.Dialogs
             this.alarmGroupTreeViewPanel.Location = new System.Drawing.Point(13, 13);
             this.alarmGroupTreeViewPanel.Margin = new System.Windows.Forms.Padding(4);
             this.alarmGroupTreeViewPanel.Name = "alarmGroupTreeViewPanel";
-            this.alarmGroupTreeViewPanel.Size = new System.Drawing.Size(403, 383);
+            this.alarmGroupTreeViewPanel.Size = new System.Drawing.Size(403, 365);
             this.alarmGroupTreeViewPanel.TabIndex = 2;
             // 
             // okCancelButtonsPanel
@@ -64,7 +64,7 @@ namespace TagManager.UI.Dialogs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 395);
+            this.ClientSize = new System.Drawing.Size(525, 391);
             this.ControlBox = false;
             this.Controls.Add(this.modifyButtonsPanel);
             this.Controls.Add(this.okCancelButtonsPanel);

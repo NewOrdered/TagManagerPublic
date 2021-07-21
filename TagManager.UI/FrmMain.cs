@@ -5,18 +5,22 @@ using System.Windows.Forms;
 using TagManager.Core.Models;
 using TagManager.UI.UserControls;
 using TagManager.UI.Dialogs;
+using System.Drawing;
 
 namespace TagManager.UI
 {
     public partial class FrmMain : Form
     {
-        public FrmMain(TagStorage storage)
+        public FrmMain(TagStorage storage, TemplateManager _templateManager)
         {
             InitializeComponent();
 
             DoubleBuffered = true;
 
             tagStorage = storage;
+            templateManager = _templateManager;
+
+            templateManager.LoadSuperTagTemplates();
             
             dataListViewAllTags.SelectionChanged += DataListViewAllTags_SelectionChanged;
             dataListViewMembers.SelectionChanged += DataListViewMembers_SelectionChanged;
@@ -24,14 +28,70 @@ namespace TagManager.UI
             dataListViewMembers.CellRightClick += DataListViewMembers_CellRightClick;
             dataListViewAllTags.ItemsChanged += DataListViewAllTags_ItemsChanged;
             dataListViewMembers.ItemsChanged += DataListViewMembers_ItemsChanged;
+            dataListViewAllTags.EmptyListMsg = "The list is empty.";
+
+            dataListViewAllTags.OwnerDraw = true;
+            dataListViewMembers.OwnerDraw = true;
+
+            nameColumn.ImageGetter = delegate (object x)
+            {
+                switch (x.GetType().Name)
+                {
+                    case nameof(SuperTag): return 1;
+
+                    case nameof(MemoryDiscreteTag):
+                    case nameof(IoDiscreteTag): return 0;
+
+                    case nameof(MemoryIntegerTag):
+                    case nameof(IoIntegerTag): return 2;
+
+                    case nameof(MemoryRealTag):
+                    case nameof(IoRealTag): return 4;
+
+                    case nameof(MemoryMsgTag):
+                    case nameof(IoMsgTag): return 3;
+
+                    case nameof(IndirectDiscreteTag):
+                    case nameof(IndirectAnalogTag):
+                    case nameof(IndirectMsgTag): return 5;
+
+                }
+                return -1;
+            };
+
+            memberNameColumn.ImageGetter = delegate (object x)
+            {
+                switch (x.GetType().Name)
+                {
+                    case nameof(SuperTag): return 1;
+
+                    case nameof(MemoryDiscreteTag):
+                    case nameof(IoDiscreteTag): return 0;
+
+                    case nameof(MemoryIntegerTag):
+                    case nameof(IoIntegerTag): return 2;
+
+                    case nameof(MemoryRealTag):
+                    case nameof(IoRealTag): return 4;
+
+                    case nameof(MemoryMsgTag):
+                    case nameof(IoMsgTag): return 3;
+
+                    case nameof(IndirectDiscreteTag):
+                    case nameof(IndirectAnalogTag):
+                    case nameof(IndirectMsgTag): return 5;
+
+                }
+                return -1;
+            };
 
             bsMembers.ListChanged += BsMembers_ListChanged;
             bsAllItems.ListChanged += BsAllItems_ListChanged;
 
+            FormClosing += FrmMain_FormClosing;
+
             bsAllItems.DataSource = tagStorage.AllItems;
             dataListViewAllTags.DataSource = bsAllItems;
-
-            bsAlarmGroups.DataSource = tagStorage.AlarmGroups;
 
             btnDeleteMember.Enabled = false;
             btnDuplicateMember.Enabled = false;
@@ -42,6 +102,11 @@ namespace TagManager.UI
 
             HideMembers();
             
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            templateManager.SaveSuperTagTemplates();
         }
 
         private void BsAllItems_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
@@ -76,9 +141,9 @@ namespace TagManager.UI
 
         private BindingSource bsAllItems = new BindingSource();
 
-        private BindingSource bsAlarmGroups = new BindingSource();
-
         private TagStorage tagStorage;
+
+        private TemplateManager templateManager;
 
         private IListItem rightClickedObject;
 
@@ -139,9 +204,7 @@ namespace TagManager.UI
 
         private ContextMenuStrip ShowContextMenuMultipleSelectedObjects()
         {
-           
-                return cMenuStripMultipleObjects;
-           
+            return cMenuStripMultipleObjects;
         }
 
         private void DataListViewMembers_SelectionChanged(object sender, EventArgs e)
@@ -223,6 +286,7 @@ namespace TagManager.UI
                 if (tag is MemoryDiscreteTag) new MemoryDiscreteTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as MemoryDiscreteTag, tagStorage.AlarmGroupManager, items);
                 if (tag is MemoryAnalogTag) new MemoryAnalogTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as MemoryAnalogTag, tagStorage.AlarmGroupManager, items);
                 if (tag is MemoryMsgTag) new MemoryMsgTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as MemoryMsgTag, tagStorage.AlarmGroupManager, items);
+                if (tag is IndirectTag) new IndirectTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as IndirectTag, tagStorage.AlarmGroupManager, items);
             }
         }
 
@@ -289,6 +353,27 @@ namespace TagManager.UI
             }
         }
 
+        private void ProcessNewIndirectFromSuperTag(List<IListItem> list, IListItem originalItem)
+        {
+            if (originalItem is SuperTag)
+            {
+                using (var frm = new FrmRenameDuplicateItem())
+                {
+                    var newItem = IndirectTag.IndirectFromSuperTag(originalItem as SuperTag, "NewIndirectTag");
+                    frm.Text = "New Indirect";
+                    frm.Build(newItem.Name, list);
+                    var result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        newItem.Name = frm.ItemName;
+                        list.Add(newItem);
+                        bsAllItems.ResetBindings(true);
+                        bsMembers.ResetBindings(true);
+                    }
+                }
+            }
+        }
+
         private void ProcessDeleteMultipleItems(List<IListItem> items, ArrayList itemsToDelete)
         {
             DialogResult dialogResult = MessageBox.Show(UserMessages.DeleteMultipleItemsConfirm(itemsToDelete.Count), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -306,9 +391,7 @@ namespace TagManager.UI
 
         private void SetLabelTextItemsCount()
         {
-            
             lblTotalItemsCount.Text = string.Format("{0} item(s). Total: {1} tag(s)", dataListViewAllTags.Items.Count, GetTotalTagsCount());
-
         }
 
         private int GetTotalTagsCount()
@@ -336,8 +419,7 @@ namespace TagManager.UI
                 ProcessDuplicateItem(tagStorage.AllItems, dataListViewAllTags.SelectedObject as IListItem);
            }
         }
-
-        
+ 
         private void RemoveItem(List<IListItem> list, IListItem item)
         {
             tagStorage.Remove(list, item);
@@ -391,6 +473,7 @@ namespace TagManager.UI
                 try
                 {
                     FrmImportProgress importProgress = new FrmImportProgress(tagStorage, openFileDialog.FileName);
+                    importProgress.Text = "Importing " + openFileDialog.SafeFileName;
                     importProgress.ShowDialog();
                     if(importProgress.Result.Success)
                     {
@@ -466,7 +549,7 @@ namespace TagManager.UI
 
         private void btnNewSuperTag_Click(object sender, EventArgs e)
         {
-            using (var frm = new FrmNewSuperTag(tagStorage.AllItems))
+            using (var frm = new FrmNewSuperTag(tagStorage.AllItems, templateManager.SuperTagTemplates))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -486,15 +569,6 @@ namespace TagManager.UI
         {
             if(selectedSuperTag != null)
             {
-                //List<IIoTag> ioTags = new List<IIoTag>();
-                //foreach(ITag tag in selectedSuperTag.Members)
-                //{
-                //    if(tag is IIoTag)
-                //    {
-                //        ioTags.Add(tag as IIoTag);
-                //    }
-                //}
-
                 List<ITagPartEditPanel> tagPartEditPanels = new List<ITagPartEditPanel>();
                 foreach(ITag tag in selectedSuperTag.Members)
                 {
@@ -502,7 +576,7 @@ namespace TagManager.UI
                     {
                         IoTagItemEditPanel editPanel = new IoTagItemEditPanel(tagStorage.AccessNameManager);
 
-                        editPanel.Build(tag as IIoTag);
+                        editPanel.Build(tag as IIoTag, GetTagIcon(tag));
                         tagPartEditPanels.Add(editPanel);
                     }
                 }
@@ -518,7 +592,29 @@ namespace TagManager.UI
             }
         }
 
+        private Image GetTagIcon(ITag tag)
+        {
+            switch (tag.GetType().Name)
+            {
+                case nameof(MemoryDiscreteTag):
+                case nameof(IoDiscreteTag): return tagIcons.Images[0];
 
+                case nameof(MemoryIntegerTag):
+                case nameof(IoIntegerTag): return tagIcons.Images[2];
+
+                case nameof(MemoryRealTag):
+                case nameof(IoRealTag): return tagIcons.Images[4];
+
+                case nameof(MemoryMsgTag):
+                case nameof(IoMsgTag): return tagIcons.Images[3];
+
+                case nameof(IndirectDiscreteTag):
+                case nameof(IndirectAnalogTag):
+                case nameof(IndirectMsgTag): return tagIcons.Images[5];
+
+            }
+            return new Bitmap(1, 1);
+        }
 
         private void UpdateEditorFromModel()
         {
@@ -562,18 +658,15 @@ namespace TagManager.UI
         {
             if (selectedSuperTag != null)
             {
-                
-
                 List<ITagPartEditPanel> tagPartEditPanels = new List<ITagPartEditPanel>();
                 foreach (ITag tag in selectedSuperTag.Members)
                 {
-                    //if (tag is IIoTag)
-                    //{
-                        TagCommentEditPanel editPanel = new TagCommentEditPanel(tagStorage.AlarmGroupManager);
 
-                        editPanel.Build(tag);
-                        tagPartEditPanels.Add(editPanel);
-                    //}
+                    TagCommentEditPanel editPanel = new TagCommentEditPanel(tagStorage.AlarmGroupManager);
+
+                    editPanel.Build(tag, GetTagIcon(tag));
+                    tagPartEditPanels.Add(editPanel);
+
                 }
 
                 FrmTagPartEdit frm = new FrmTagPartEdit(tagPartEditPanels, findText, replaceText);
@@ -610,6 +703,35 @@ namespace TagManager.UI
             {
                 frm.ShowDialog();
             }
+        }
+
+        private void toolStripMenuTemplates_Click(object sender, EventArgs e)
+        {
+            using (var frm  = new FrmManageTemplates(templateManager))
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void tStripMenuSuperTagCreateTemplate_Click(object sender, EventArgs e)
+        {
+            SuperTag selectedSuperTag = rightClickedObject as SuperTag;
+            SuperTagTemplate newTemplate = SuperTagTemplate.FromSuperTag(selectedSuperTag, selectedSuperTag.Name + "Template");
+            using(var frm = new FrmAddModifySuperTagTemplate(modifyFlag: false))
+            {
+
+                frm.Build(newTemplate, templateManager);
+
+                if(frm.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Template created!","", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void tStripMenuSuperTagCreateIndirect_Click(object sender, EventArgs e)
+        {
+            ProcessNewIndirectFromSuperTag(rightClickedObjectCollection, rightClickedObject);
         }
     }
 }

@@ -1,0 +1,12 @@
+Z:\C\LocalData\Projects\TagManager\TagManager.Core\bin\Debug\TagManager.Core.dll
+Z:\C\LocalData\Projects\TagManager\TagManager.Core\bin\Debug\TagManager.Core.pdb
+Z:\C\LocalData\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.csproj.AssemblyReference.cache
+Z:\C\LocalData\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.csproj.CoreCompileInputs.cache
+Z:\C\LocalData\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.dll
+Z:\C\LocalData\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.pdb
+C:\Projects\TagManager\TagManager.Core\bin\Debug\TagManager.Core.dll
+C:\Projects\TagManager\TagManager.Core\bin\Debug\TagManager.Core.pdb
+C:\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.csproj.AssemblyReference.cache
+C:\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.csproj.CoreCompileInputs.cache
+C:\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.dll
+C:\Projects\TagManager\TagManager.Core\obj\Debug\TagManager.Core.pdb
