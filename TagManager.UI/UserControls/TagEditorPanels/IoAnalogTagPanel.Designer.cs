@@ -3,15 +3,15 @@ namespace TagManager.UI.UserControls
 {
     partial class IoAnalogTagPanel
     {
-        /// <summary> 
-        /// Обязательная переменная конструктора.
+        /// <summary>
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Освободить все используемые ресурсы.
+        /// <summary>
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -21,51 +21,19 @@ namespace TagManager.UI.UserControls
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором компонентов
+        #region Windows Form Designer generated code
 
-        /// <summary> 
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblType = new System.Windows.Forms.Label();
-            this.commonPanel = new TagManager.UI.UserControls.CommonPanel();
-            this.ioAnalogPanel = new TagManager.UI.UserControls.IoAnalogPanel();
             this.analogPanel = new TagManager.UI.UserControls.AnalogPanel();
+            this.commonPanel = new TagManager.UI.UserControls.CommonPanel();
             this.ioPanel = new TagManager.UI.UserControls.IoPanel();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.ioAnalogPanel = new TagManager.UI.UserControls.IoAnalogPanel();
             this.SuspendLayout();
-            // 
-            // lblType
-            // 
-            this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(4, 7);
-            this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(54, 16);
-            this.lblType.TabIndex = 0;
-            this.lblType.Text = "<Type>";
-            // 
-            // commonPanel
-            // 
-            this.commonPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.commonPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.commonPanel.Location = new System.Drawing.Point(8, 27);
-            this.commonPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.commonPanel.Name = "commonPanel";
-            this.commonPanel.Size = new System.Drawing.Size(495, 160);
-            this.commonPanel.TabIndex = 1;
-            // 
-            // ioAnalogPanel
-            // 
-            this.ioAnalogPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ioAnalogPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.ioAnalogPanel.Location = new System.Drawing.Point(8, 261);
-            this.ioAnalogPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.ioAnalogPanel.Name = "ioAnalogPanel";
-            this.ioAnalogPanel.Size = new System.Drawing.Size(495, 33);
-            this.ioAnalogPanel.TabIndex = 3;
             // 
             // analogPanel
             // 
@@ -75,7 +43,17 @@ namespace TagManager.UI.UserControls
             this.analogPanel.Margin = new System.Windows.Forms.Padding(4);
             this.analogPanel.Name = "analogPanel";
             this.analogPanel.Size = new System.Drawing.Size(495, 64);
-            this.analogPanel.TabIndex = 2;
+            this.analogPanel.TabIndex = 10;
+            // 
+            // commonPanel
+            // 
+            this.commonPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.commonPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.commonPanel.Location = new System.Drawing.Point(8, 27);
+            this.commonPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.commonPanel.Name = "commonPanel";
+            this.commonPanel.Size = new System.Drawing.Size(495, 160);
+            this.commonPanel.TabIndex = 9;
             // 
             // ioPanel
             // 
@@ -85,34 +63,30 @@ namespace TagManager.UI.UserControls
             this.ioPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ioPanel.Name = "ioPanel";
             this.ioPanel.Size = new System.Drawing.Size(495, 64);
-            this.ioPanel.TabIndex = 4;
+            this.ioPanel.TabIndex = 12;
             // 
-            // btnSave
+            // ioAnalogPanel
             // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Location = new System.Drawing.Point(404, 372);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 28);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.ioAnalogPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ioAnalogPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.ioAnalogPanel.Location = new System.Drawing.Point(8, 261);
+            this.ioAnalogPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.ioAnalogPanel.Name = "ioAnalogPanel";
+            this.ioAnalogPanel.Size = new System.Drawing.Size(495, 33);
+            this.ioAnalogPanel.TabIndex = 11;
             // 
-            // IoIntegerTagPanel
+            // IoAnalogTagPanelNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.ioPanel);
-            this.Controls.Add(this.analogPanel);
             this.Controls.Add(this.ioAnalogPanel);
+            this.Controls.Add(this.analogPanel);
             this.Controls.Add(this.commonPanel);
-            this.Controls.Add(this.lblType);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "IoIntegerTagPanel";
-            this.Size = new System.Drawing.Size(513, 407);
+            this.Name = "IoAnalogTagPanelNew";
+            this.Controls.SetChildIndex(this.commonPanel, 0);
+            this.Controls.SetChildIndex(this.analogPanel, 0);
+            this.Controls.SetChildIndex(this.ioAnalogPanel, 0);
+            this.Controls.SetChildIndex(this.ioPanel, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,11 +94,9 @@ namespace TagManager.UI.UserControls
 
         #endregion
 
-        private System.Windows.Forms.Label lblType;
-        private CommonPanel commonPanel;
-        private IoAnalogPanel ioAnalogPanel;
         private AnalogPanel analogPanel;
+        private CommonPanel commonPanel;
         private IoPanel ioPanel;
-        private System.Windows.Forms.Button btnSave;
+        private IoAnalogPanel ioAnalogPanel;
     }
 }

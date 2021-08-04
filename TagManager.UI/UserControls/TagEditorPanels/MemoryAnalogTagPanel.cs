@@ -1,32 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using TagManager.Core.Models;
 
 namespace TagManager.UI.UserControls
 {
-    public partial class MemoryAnalogTagPanel : UserControl, ITagEditorPanel
+    public partial class MemoryAnalogTagPanel : TagPanel, ITagEditorPanel
     {
         public MemoryAnalogTagPanel()
         {
             InitializeComponent();
         }
 
-        public EventHandler Applied = delegate { };
-        public MemoryAnalogTag MemoryAnalogTag { get; private set; }
-
-        private AlarmGroupManager alarmGroupManager;
         public void Build(MemoryAnalogTag tag, AlarmGroupManager manager, List<IListItem> items)
         {
-            MemoryAnalogTag = tag;
-            alarmGroupManager = manager;
+            SetLabelType(tag.ToString());
 
-            lblType.Text = MemoryAnalogTag.ToString();
-
-            commonPanel.Build(MemoryAnalogTag.Common, alarmGroupManager, items);
-            analogPanel.Build(MemoryAnalogTag.Analog);
+            commonPanel.Build(tag.Common, manager, items);
+            analogPanel.Build(tag.Analog);
         }
-        public bool Apply()
+
+        public override bool Apply()
         {
             ReturnResult ApplyCommon = commonPanel.Apply();
 
@@ -39,18 +32,6 @@ namespace TagManager.UI.UserControls
                 MessageBox.Show(ApplyCommon.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             }
             return ApplyCommon.Success;
-        }
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (Apply())
-            {
-                OnApplied();
-            }
-        }
-
-        protected void OnApplied()
-        {
-            Applied(this, EventArgs.Empty);
         }
 
         public void UpdateFromModel()

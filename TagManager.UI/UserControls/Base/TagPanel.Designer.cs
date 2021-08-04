@@ -30,12 +30,12 @@ namespace TagManager.UI.UserControls
         private void InitializeComponent()
         {
             this.btnSave = new System.Windows.Forms.Button();
-            this.commonPanel = new TagManager.UI.UserControls.CommonPanel();
             this.lblType = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSave
             // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Location = new System.Drawing.Point(404, 372);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
@@ -44,16 +44,6 @@ namespace TagManager.UI.UserControls
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // commonPanel
-            // 
-            this.commonPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.commonPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.commonPanel.Location = new System.Drawing.Point(8, 27);
-            this.commonPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.commonPanel.Name = "commonPanel";
-            this.commonPanel.Size = new System.Drawing.Size(495, 160);
-            this.commonPanel.TabIndex = 7;
             // 
             // lblType
             // 
@@ -70,10 +60,9 @@ namespace TagManager.UI.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.commonPanel);
             this.Controls.Add(this.lblType);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TagPanel";
             this.Size = new System.Drawing.Size(513, 407);
             this.ResumeLayout(false);
@@ -84,7 +73,6 @@ namespace TagManager.UI.UserControls
         #endregion
 
         private System.Windows.Forms.Button btnSave;
-        private CommonPanel commonPanel;
         private System.Windows.Forms.Label lblType;
     }
 }

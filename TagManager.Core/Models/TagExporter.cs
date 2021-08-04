@@ -10,16 +10,12 @@ namespace TagManager.Core.Models
         private List<IListItem> itemsForExport;
 
         private List<IoDiscreteTag> ioDiscreteTags = new List<IoDiscreteTag>();
-        //private List<IoIntegerTag> ioIntegerTags = new List<IoIntegerTag>();
         private List<IoAnalogTag> ioIntegerTags = new List<IoAnalogTag>();
-        //private List<IoRealTag> ioRealTags = new List<IoRealTag>();
         private List<IoAnalogTag> ioRealTags = new List<IoAnalogTag>();
         private List<IoMsgTag> ioMsgTags =  new List<IoMsgTag>();
        
         private List<MemoryDiscreteTag> memoryDiscreteTags = new List<MemoryDiscreteTag>();
-        //private List<MemoryIntegerTag> memoryIntegerTags = new List<MemoryIntegerTag>();
         private List<MemoryAnalogTag> memoryIntegerTags = new List<MemoryAnalogTag>();
-        //private List<MemoryRealTag> memoryRealTags = new List<MemoryRealTag>();
         private List<MemoryAnalogTag> memoryRealTags = new List<MemoryAnalogTag>();
         private List<MemoryMsgTag> memoryMsgTags = new List<MemoryMsgTag>();
         
@@ -56,12 +52,12 @@ namespace TagManager.Core.Models
 
         }
 
-        public void Export(List<IListItem> items, List<AlarmGroup> alarmGroups, List<AccessName> accessNames, string filePath)
+        public void Export(List<IListItem> items, List<AlarmGroup> alarmGroups, List<AccessName> accessNames, string mode, string filePath)
         {
             PrepareTagsForExport(items);
             StringBuilder allLines = new StringBuilder();
 
-            allLines.Append(GetImportModeLine());
+            allLines.Append(GetImportModeLine(mode));
 
             allLines.Append(Environment.NewLine);
             allLines.Append(GetAccessNameLines(accessNames));
@@ -76,19 +72,15 @@ namespace TagManager.Core.Models
             allLines.Append(GetIoDiscreteLines());
 
             allLines.Append(Environment.NewLine);
-            //allLines.Append(GetMemoryIntegerLines());
             allLines.Append(GetMemoryAnalogLines(":MemoryInt", memoryIntegerTags));
 
             allLines.Append(Environment.NewLine);
-            //allLines.Append(GetIoIntegerLines());
             allLines.Append(GetIoAnalogLines(":IoInt", ioIntegerTags));
 
             allLines.Append(Environment.NewLine);
-            //allLines.Append(GetMemoryRealLines());
             allLines.Append(GetMemoryAnalogLines(":MemoryReal", memoryRealTags));
 
             allLines.Append(Environment.NewLine);
-            //allLines.Append(GetIoRealLines());
             allLines.Append(GetIoAnalogLines(":IoReal", ioRealTags));
 
             allLines.Append(Environment.NewLine);
@@ -458,9 +450,9 @@ namespace TagManager.Core.Models
             //"Preparation";"$System";"Подготовка";Yes;         999;                 "0;0;0;0;0;0;0;0;"";"";"";"";"";"";"";""
         }
 
-        private string GetImportModeLine()
+        private string GetImportModeLine(string mode)
         {
-            return ":mode=replace";
+            return string.Format(":mode={0}", mode).ToLower();
         }
         
 

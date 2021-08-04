@@ -85,10 +85,8 @@ namespace TagManager.Core.Models
 
             try
             {
-                //Stopwatch stopWatch = new Stopwatch();
-                //stopWatch.Start();
+ 
                 lines = WriteSafeReadAllLines(filePath); //File.ReadAllLines(filePath, Encoding.GetEncoding("Windows-1251")); //
-                //stopWatch.Stop();
                 result.Success = true;
                 return result;
             }
@@ -117,8 +115,6 @@ namespace TagManager.Core.Models
             
             sectionHeader = SectionHeader.None;
 
-            //Stopwatch stopWatch = new Stopwatch();
-            //stopWatch.Start();
             for (int i = 0; i <= lines.Length - 1; i++)
             {
                 lineNumber = i + 1;
@@ -127,6 +123,11 @@ namespace TagManager.Core.Models
                 {
                     sectionHeader = GetSectionHeader(lines[i]);
                     LogLineInfo("Parsing section: " + sectionHeader.ToString());
+                    if(lines[i].StartsWith(":mode", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string modeHeader = lines[i].Split(';')[0];
+                        SetMode(modeHeader);
+                    }
                 }
                 else
                 {
@@ -137,14 +138,12 @@ namespace TagManager.Core.Models
 
                         if(fields.IsArrayOfEmptyStrings())
                         {
-                            LogLineInfo("Line has only empty values. Skipping line.");
+                            //LogLineInfo("Line has only empty values. Skipping line.");
                             continue;
                         }
 
                         switch (sectionHeader)
                         {
-                            
-
                             case SectionHeader.IOAccess:
                                 ParseAccessNameFields(fields);
                                 break;
@@ -158,11 +157,13 @@ namespace TagManager.Core.Models
                                 break;
 
                             case SectionHeader.IOInt:
-                                ParseIoIntegerFields(fields);
+                                IoIntegerTag ioIntegerTag = new IoIntegerTag();
+                                ParseIoAnalogFields(fields, ioIntegerTag);
                                 break;
 
                             case SectionHeader.IOReal:
-                                ParseIoRealFields(fields);
+                                IoRealTag ioRealTag = new IoRealTag();
+                                ParseIoAnalogFields(fields, ioRealTag);
                                 break;
 
                             case SectionHeader.IOMsg:
@@ -174,11 +175,13 @@ namespace TagManager.Core.Models
                                 break;
 
                             case SectionHeader.MemoryInt:
-                                ParseMemoryIntegerFields(fields);
+                                MemoryIntegerTag memoryIntegerTag = new MemoryIntegerTag();
+                                ParseMemoryAnalogFields(fields, memoryIntegerTag);
                                 break;
 
                             case SectionHeader.MemoryReal:
-                                ParseMemoryRealFields(fields);
+                                MemoryRealTag memoryRealTag = new MemoryRealTag();
+                                ParseMemoryAnalogFields(fields, memoryRealTag);
                                 break;
 
                             case SectionHeader.MemoryMsg:
@@ -208,7 +211,7 @@ namespace TagManager.Core.Models
                     }
                 }
             }
-            //stopWatch.Stop();
+
             string importResults = string.Format("Import finished. {0} error(s), {1} warnings", importErrorCount, importWarningCount);
             LogInfo(string.Format("{0}\t{1}", DateTime.Now, importResults));
             result.Success = true;
@@ -231,20 +234,7 @@ namespace TagManager.Core.Models
             return importedAccessNames;
         }
 
-        private void ParseIoIntegerFields(string[] fields)
-        {
-            if (fields.Length >= 63)
-            {
-                IoIntegerTag tag = GetIoIntegerTag(fields);
-
-                AddItem(tag, fields[0]);
-            }
-            else
-            {
-                LogLineError("Line is not a valid I/O Integer tag record. Skipping line.");
-                //line is not valid IO Integer tag record, log and skip
-            }
-        }
+        public DBLoadMode DBLoadMode { get; private set; } = DBLoadMode.Ask;
 
         private void ParseIoDiscreteFields(string[] fields)
         {
@@ -261,18 +251,18 @@ namespace TagManager.Core.Models
             }
         }
 
-        private void ParseIoRealFields(string[] fields)
+        private void ParseIoAnalogFields(string[] fields, IoAnalogTag tag)
         {
             if (fields.Length >= 63) //63 total fields in line
             {
-                IoRealTag tag = GetIoRealTag(fields);
+                GetIoAnalogTag(fields, tag);
 
                 AddItem(tag, fields[0]);
             }
             else
             {
-                LogLineError("Line is not a valid I/O Real tag record. Skipping line.");
-                //line is not valid IO Real tag record, log and skip
+                LogLineError("Line is not a valid I/O Analog tag record. Skipping line.");
+                //line is not valid IO Analog tag record, log and skip
             }
         }
 
@@ -306,33 +296,19 @@ namespace TagManager.Core.Models
             }
         }
 
-        private void ParseMemoryIntegerFields(string[] fields)
+
+        private void ParseMemoryAnalogFields(string[] fields, MemoryAnalogTag tag)
         {
             if (fields.Length >= 56)
             {
-                MemoryIntegerTag tag = GetMemoryIntegerTag(fields);
+                GetMemoryAnalogTag(fields, tag);
 
                 AddItem(tag, fields[0]);
             }
             else
             {
-                LogLineError("Line is not a valid Memory Integer tag record. Skipping line.");
-                //line is not valid Memory Integer tag record, log and skip
-            }
-        }
-
-        private void ParseMemoryRealFields(string[] fields)
-        {
-            if (fields.Length >= 56)
-            {
-                MemoryRealTag tag = GetMemoryRealTag(fields);
-
-                AddItem(tag, fields[0]);
-            }
-            else
-            {
-                LogLineError("Line is not a valid Memory Real tag record. Skipping line.");
-                //line is not valid Memory Real tag record, log and skip
+                LogLineError("Line is not a valid Memory Analog tag record. Skipping line.");
+                //line is not valid Memory Analog tag record, log and skip
             }
         }
 
@@ -589,29 +565,15 @@ namespace TagManager.Core.Models
             };
         }
 
-        private IoIntegerTag GetIoIntegerTag(string[] fields)
+
+        private void GetIoAnalogTag(string[] fields, IoAnalogTag tag)
         {
-            return new IoIntegerTag()
-            {
-                Common = GetCommon(fields, fields[46]), // 46 - Alarm Comment position in I/O Integer tag line
-                Io = GetIo(fields[42], fields[44], fields[45]),
-                Analog = GetAnalog(fields),
-                IoAnalog = GetIoAnalog(fields)
-            };
+            tag.Common = GetCommon(fields, fields[46]); // 46 - Alarm Comment position in I/O Real tag line
+            tag.Io = GetIo(fields[42], fields[44], fields[45]);
+            tag.Analog = GetAnalog(fields);
+            tag.IoAnalog = GetIoAnalog(fields);
         }
 
-        private IoRealTag GetIoRealTag(string[] fields)
-        {
-            return new IoRealTag()
-            {
-                Common = GetCommon(fields, fields[46]), // 46 - Alarm Comment position in I/O Real tag line
-                Io = GetIo(fields[42], fields[44], fields[45]),
-                Analog = GetAnalog(fields),
-                IoAnalog = GetIoAnalog(fields)
-            };
-        }
-
-        
 
         private IoMsgTag GetIoMsgTag(string[] fields)
         {
@@ -633,22 +595,10 @@ namespace TagManager.Core.Models
             };
         }
 
-        private MemoryIntegerTag GetMemoryIntegerTag(string[] fields)
+        private void GetMemoryAnalogTag(string[] fields, MemoryAnalogTag tag)
         {
-            return new MemoryIntegerTag()
-            {
-                Common = GetCommon(fields, fields[39]), // 39 - Alarm Comment position in Memory Integer tag line
-                Analog = GetAnalog(fields)
-            };
-        }
-
-        private MemoryRealTag GetMemoryRealTag(string[] fields)
-        {
-            return new MemoryRealTag()
-            {
-                Common = GetCommon(fields, fields[39]), // 39 - Alarm Comment position in Memory Real tag line
-                Analog = GetAnalog(fields)
-            };
+            tag.Common = GetCommon(fields, fields[39]); // 39 - Alarm Comment position in Memory Real tag line
+            tag.Analog = GetAnalog(fields);
         }
 
         private MemoryMsgTag GetMemoryMsgTag(string[] fields)
@@ -660,52 +610,6 @@ namespace TagManager.Core.Models
             };
         }
 
-        //private IndirectDiscreteTag GetIndirectDiscreteTag(string[] fields)
-        //{
-        //    IndirectDiscreteTag indirect = new IndirectDiscreteTag();
-
-        //    indirect.Common.Name = fields[0];
-        //    indirect.Common.Group = fields[1];
-        //    indirect.Common.Comment = fields[2];
-        //    indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
-        //    indirect.Common.EventLoggingPriority = GetInt(fields[4]);
-        //    indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
-        //    indirect.SymbolicName = fields[6];
-
-
-        //    return indirect;
-        //}
-
-        //private IndirectAnalogTag GetIndirectAnalogTag(string[] fields)
-        //{
-        //    IndirectAnalogTag indirect = new IndirectAnalogTag();
-
-        //    indirect.Common.Name = fields[0];
-        //    indirect.Common.Group = fields[1];
-        //    indirect.Common.Comment = fields[2];
-        //    indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
-        //    indirect.Common.EventLoggingPriority = GetInt(fields[4]);
-        //    indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
-        //    indirect.SymbolicName = fields[6];
-
-
-        //    return indirect;
-        //}
-
-        //private IndirectMsgTag GetIndirectMsgTag(string[] fields)
-        //{
-        //    IndirectMsgTag indirect = new IndirectMsgTag();
-
-        //    indirect.Common.Name = fields[0];
-        //    indirect.Common.Group = fields[1];
-        //    indirect.Common.Comment = fields[2];
-        //    indirect.Common.EventLogged = GetBoolFromYesNoString(fields[3]);
-        //    indirect.Common.EventLoggingPriority = GetInt(fields[4]);
-        //    indirect.Common.RetentiveValue = GetBoolFromYesNoString(fields[5]);
-        //    indirect.SymbolicName = fields[6];
-
-        //    return indirect;
-        //}
 
         private void GetIndirectTag(string[] fields, IndirectTag indirect)
         {
@@ -808,7 +712,10 @@ namespace TagManager.Core.Models
             string[] headers = line.Split(';');
             switch (headers[0])
             {
-
+                //case ":mode":
+                //    result = SectionHeader.Mode;
+                //    break;
+                
                 case ":AlarmGroup":
                     result = SectionHeader.AlarmGroup;
                     break;
@@ -871,6 +778,22 @@ namespace TagManager.Core.Models
 
             }
             return result;
+        }
+
+        private void SetMode(string modeHeader)
+        {
+            string modeString = modeHeader.Substring(modeHeader.LastIndexOf("=") + 1);
+
+            DBLoadMode mode;
+            if (Enum.TryParse(modeString, true, out mode))
+            {
+                DBLoadMode = mode;
+            }
+            else
+            {
+                LogLineWarning(string.Format("'{0}' is not a valid DBLoad mode string. Using default value 'Replace'", modeString));
+                DBLoadMode = DBLoadMode.Replace;
+            }
         }
 
         private bool IsNameSupertag(string name)

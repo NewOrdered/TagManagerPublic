@@ -10,10 +10,13 @@ namespace TagManager.UI.UserControls
             InitializeComponent();
         }
 
-        public event EventHandler  BtnOkClicked = delegate { };
-        public event EventHandler  BtnCancelClicked = delegate { };
+        public event EventHandler BtnOkClicked = delegate { };
+        public event EventHandler BtnCancelClicked = delegate { };
 
-
+        public Button BtnOk
+        {
+            get { return btnOk; }
+        }
         public void SetBtnOkEnabled(bool enabled)
         {
             btnOk.Enabled = enabled;

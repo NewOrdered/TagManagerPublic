@@ -11,6 +11,7 @@ namespace TagManager.Core.Models
     public enum SectionHeader
     {
         None,
+        Mode,
         Other,
         IOAccess,
         AlarmGroup,
@@ -34,10 +35,13 @@ namespace TagManager.Core.Models
         MX
     }
 
-    public enum IndirectType
+    public enum DBLoadMode
     {
-        Discrete,
-        Analog,
-        Msg
+        Replace,
+        Update,
+        Ask,
+        Ignore,
+        Terminate,
+        Test
     }
 }

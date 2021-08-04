@@ -73,6 +73,13 @@
             this.toolStripMenuAlarmGroups = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuAccessNames = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuTemplates = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuDBLoadMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuModeReplace = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuModeUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuModeAsk = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuModeIgnore = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuModeTerminate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuModeTest = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.btnNewItem = new System.Windows.Forms.Button();
             this.btnNewSuperTag = new System.Windows.Forms.Button();
@@ -163,6 +170,7 @@
             this.tagIcons.Images.SetKeyName(3, "msg");
             this.tagIcons.Images.SetKeyName(4, "real");
             this.tagIcons.Images.SetKeyName(5, "link");
+            this.tagIcons.Images.SetKeyName(6, "empty");
             // 
             // dataListViewMembers
             // 
@@ -188,7 +196,7 @@
             this.dataListViewMembers.ShowGroups = false;
             this.dataListViewMembers.ShowHeaderInAllViews = false;
             this.dataListViewMembers.ShowItemToolTips = true;
-            this.dataListViewMembers.Size = new System.Drawing.Size(377, 264);
+            this.dataListViewMembers.Size = new System.Drawing.Size(388, 264);
             this.dataListViewMembers.SmallImageList = this.tagIcons;
             this.dataListViewMembers.TabIndex = 8;
             this.dataListViewMembers.UseCompatibleStateImageBehavior = false;
@@ -239,7 +247,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
             this.tableLayoutPanel2.Controls.Add(this.dataListViewMembers, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 1);
@@ -259,14 +267,14 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(379, 22);
+            this.panel3.Size = new System.Drawing.Size(390, 22);
             this.panel3.TabIndex = 9;
             // 
             // lblMembersCount
             // 
             this.lblMembersCount.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblMembersCount.AutoSize = true;
-            this.lblMembersCount.Location = new System.Drawing.Point(286, 4);
+            this.lblMembersCount.Location = new System.Drawing.Point(297, 4);
             this.lblMembersCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMembersCount.Name = "lblMembersCount";
             this.lblMembersCount.Size = new System.Drawing.Size(79, 16);
@@ -283,17 +291,17 @@
             this.panel4.Controls.Add(this.btnDuplicateMember);
             this.panel4.Controls.Add(this.btnDeleteMember);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(388, 31);
+            this.panel4.Location = new System.Drawing.Point(399, 31);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(114, 266);
+            this.panel4.Size = new System.Drawing.Size(103, 266);
             this.panel4.TabIndex = 10;
             // 
             // btnCopyComments
             // 
             this.btnCopyComments.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnCopyComments.Location = new System.Drawing.Point(11, 177);
+            this.btnCopyComments.Location = new System.Drawing.Point(4, 177);
             this.btnCopyComments.Name = "btnCopyComments";
-            this.btnCopyComments.Size = new System.Drawing.Size(100, 28);
+            this.btnCopyComments.Size = new System.Drawing.Size(96, 28);
             this.btnCopyComments.TabIndex = 23;
             this.btnCopyComments.Text = "Copy AC > C";
             this.btnCopyComments.UseVisualStyleBackColor = true;
@@ -302,9 +310,9 @@
             // btnEditComments
             // 
             this.btnEditComments.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnEditComments.Location = new System.Drawing.Point(11, 143);
+            this.btnEditComments.Location = new System.Drawing.Point(4, 143);
             this.btnEditComments.Name = "btnEditComments";
-            this.btnEditComments.Size = new System.Drawing.Size(100, 28);
+            this.btnEditComments.Size = new System.Drawing.Size(96, 28);
             this.btnEditComments.TabIndex = 22;
             this.btnEditComments.Text = "Comments...";
             this.btnEditComments.UseVisualStyleBackColor = true;
@@ -313,10 +321,10 @@
             // btnNewMember
             // 
             this.btnNewMember.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnNewMember.Location = new System.Drawing.Point(11, 4);
+            this.btnNewMember.Location = new System.Drawing.Point(4, 4);
             this.btnNewMember.Margin = new System.Windows.Forms.Padding(4);
             this.btnNewMember.Name = "btnNewMember";
-            this.btnNewMember.Size = new System.Drawing.Size(100, 28);
+            this.btnNewMember.Size = new System.Drawing.Size(96, 28);
             this.btnNewMember.TabIndex = 20;
             this.btnNewMember.Text = "New...";
             this.btnNewMember.UseVisualStyleBackColor = true;
@@ -325,9 +333,9 @@
             // btnEditIoItems
             // 
             this.btnEditIoItems.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnEditIoItems.Location = new System.Drawing.Point(11, 109);
+            this.btnEditIoItems.Location = new System.Drawing.Point(4, 109);
             this.btnEditIoItems.Name = "btnEditIoItems";
-            this.btnEditIoItems.Size = new System.Drawing.Size(100, 28);
+            this.btnEditIoItems.Size = new System.Drawing.Size(96, 28);
             this.btnEditIoItems.TabIndex = 21;
             this.btnEditIoItems.Text = "Edit I/O...";
             this.btnEditIoItems.UseVisualStyleBackColor = true;
@@ -336,10 +344,10 @@
             // btnDuplicateMember
             // 
             this.btnDuplicateMember.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnDuplicateMember.Location = new System.Drawing.Point(11, 40);
+            this.btnDuplicateMember.Location = new System.Drawing.Point(4, 40);
             this.btnDuplicateMember.Margin = new System.Windows.Forms.Padding(4);
             this.btnDuplicateMember.Name = "btnDuplicateMember";
-            this.btnDuplicateMember.Size = new System.Drawing.Size(100, 28);
+            this.btnDuplicateMember.Size = new System.Drawing.Size(96, 28);
             this.btnDuplicateMember.TabIndex = 10;
             this.btnDuplicateMember.Text = "Duplicate";
             this.btnDuplicateMember.UseVisualStyleBackColor = true;
@@ -348,9 +356,9 @@
             // btnDeleteMember
             // 
             this.btnDeleteMember.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnDeleteMember.Location = new System.Drawing.Point(11, 75);
+            this.btnDeleteMember.Location = new System.Drawing.Point(4, 75);
             this.btnDeleteMember.Name = "btnDeleteMember";
-            this.btnDeleteMember.Size = new System.Drawing.Size(100, 28);
+            this.btnDeleteMember.Size = new System.Drawing.Size(96, 28);
             this.btnDeleteMember.TabIndex = 11;
             this.btnDeleteMember.Text = "Delete";
             this.btnDeleteMember.UseVisualStyleBackColor = true;
@@ -504,7 +512,8 @@
             this.toolStripMenuSpecial.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuAlarmGroups,
             this.toolStripMenuAccessNames,
-            this.toolStripMenuTemplates});
+            this.toolStripMenuTemplates,
+            this.toolStripMenuDBLoadMode});
             this.toolStripMenuSpecial.Name = "toolStripMenuSpecial";
             this.toolStripMenuSpecial.Size = new System.Drawing.Size(66, 20);
             this.toolStripMenuSpecial.Text = "Special";
@@ -512,23 +521,79 @@
             // toolStripMenuAlarmGroups
             // 
             this.toolStripMenuAlarmGroups.Name = "toolStripMenuAlarmGroups";
-            this.toolStripMenuAlarmGroups.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuAlarmGroups.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuAlarmGroups.Text = "Alarm Groups...";
             this.toolStripMenuAlarmGroups.Click += new System.EventHandler(this.toolStripMenuAlarmGroups_Click);
             // 
             // toolStripMenuAccessNames
             // 
             this.toolStripMenuAccessNames.Name = "toolStripMenuAccessNames";
-            this.toolStripMenuAccessNames.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuAccessNames.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuAccessNames.Text = "Access Names...";
             this.toolStripMenuAccessNames.Click += new System.EventHandler(this.toolStripMenuAccessNames_Click);
             // 
             // toolStripMenuTemplates
             // 
             this.toolStripMenuTemplates.Name = "toolStripMenuTemplates";
-            this.toolStripMenuTemplates.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuTemplates.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuTemplates.Text = "Templates...";
             this.toolStripMenuTemplates.Click += new System.EventHandler(this.toolStripMenuTemplates_Click);
+            // 
+            // toolStripMenuDBLoadMode
+            // 
+            this.toolStripMenuDBLoadMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuModeReplace,
+            this.toolStripMenuModeUpdate,
+            this.toolStripMenuModeAsk,
+            this.toolStripMenuModeIgnore,
+            this.toolStripMenuModeTerminate,
+            this.toolStripMenuModeTest});
+            this.toolStripMenuDBLoadMode.Name = "toolStripMenuDBLoadMode";
+            this.toolStripMenuDBLoadMode.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuDBLoadMode.Text = "DBLoad Mode";
+            
+            // 
+            // toolStripMenuModeReplace
+            // 
+            this.toolStripMenuModeReplace.Name = "toolStripMenuModeReplace";
+            this.toolStripMenuModeReplace.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeReplace.Tag = "Replace";
+            this.toolStripMenuModeReplace.Text = "Replace";
+            // 
+            // toolStripMenuModeUpdate
+            // 
+            this.toolStripMenuModeUpdate.Name = "toolStripMenuModeUpdate";
+            this.toolStripMenuModeUpdate.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeUpdate.Tag = "Update";
+            this.toolStripMenuModeUpdate.Text = "Update";
+            // 
+            // toolStripMenuModeAsk
+            // 
+            this.toolStripMenuModeAsk.Name = "toolStripMenuModeAsk";
+            this.toolStripMenuModeAsk.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeAsk.Tag = "Ask";
+            this.toolStripMenuModeAsk.Text = "Ask";
+            // 
+            // toolStripMenuModeIgnore
+            // 
+            this.toolStripMenuModeIgnore.Name = "toolStripMenuModeIgnore";
+            this.toolStripMenuModeIgnore.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeIgnore.Tag = "Ignore";
+            this.toolStripMenuModeIgnore.Text = "Ignore";
+            // 
+            // toolStripMenuModeTerminate
+            // 
+            this.toolStripMenuModeTerminate.Name = "toolStripMenuModeTerminate";
+            this.toolStripMenuModeTerminate.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeTerminate.Tag = "Terminate";
+            this.toolStripMenuModeTerminate.Text = "Terminate";
+            // 
+            // toolStripMenuModeTest
+            // 
+            this.toolStripMenuModeTest.Name = "toolStripMenuModeTest";
+            this.toolStripMenuModeTest.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeTest.Tag = "Test";
+            this.toolStripMenuModeTest.Text = "Test";
             // 
             // btnDeleteItem
             // 
@@ -692,6 +757,13 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuTemplates;
         private System.Windows.Forms.ToolStripMenuItem tStripMenuSuperTagCreateTemplate;
         private System.Windows.Forms.ToolStripMenuItem tStripMenuSuperTagCreateIndirect;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuDBLoadMode;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeAsk;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeReplace;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeUpdate;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeIgnore;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeTerminate;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeTest;
     }
 }
 

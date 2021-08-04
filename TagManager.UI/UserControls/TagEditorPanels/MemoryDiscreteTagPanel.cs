@@ -1,33 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using TagManager.Core.Models;
 
 namespace TagManager.UI.UserControls
 {
-    public partial class MemoryDiscreteTagPanel : UserControl, ITagEditorPanel
+    public partial class MemoryDiscreteTagPanel : TagPanel, ITagEditorPanel
     {
         public MemoryDiscreteTagPanel()
         {
             InitializeComponent();
         }
-        public EventHandler Applied = delegate { };
-
-        public MemoryDiscreteTag MemoryDiscreteTag { get; private set; }
-        private AlarmGroupManager alarmGroupManager;
 
         public void Build(MemoryDiscreteTag tag, AlarmGroupManager manager, List<IListItem> listItems)
         {
-            MemoryDiscreteTag = tag;
-            alarmGroupManager = manager;
+            SetLabelType(tag.ToString());
 
-            lblType.Text = MemoryDiscreteTag.ToString();
-
-            commonPanel.Build(MemoryDiscreteTag.Common, alarmGroupManager, listItems);
-            discretePanel.Build(MemoryDiscreteTag.Discrete);
+            commonPanel.Build(tag.Common, manager, listItems);
+            discretePanel.Build(tag.Discrete);
         }
 
-        public bool Apply()
+        public override bool Apply()
         {
             ReturnResult ApplyCommon = commonPanel.Apply();
 
@@ -40,18 +32,6 @@ namespace TagManager.UI.UserControls
                 MessageBox.Show(ApplyCommon.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             }
             return ApplyCommon.Success;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (Apply())
-            {
-                OnApplied();
-            }
-        }
-        protected void OnApplied()
-        {
-            Applied(this, EventArgs.Empty);
         }
 
         public void UpdateFromModel()

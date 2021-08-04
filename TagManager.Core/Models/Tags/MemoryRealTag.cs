@@ -3,7 +3,7 @@
 namespace TagManager.Core.Models
 {
     [Serializable]
-    public class MemoryRealTag: MemoryAnalogTag, IListItem
+    public class MemoryRealTag: MemoryAnalogTag
     {
         public override string ToString()
         {

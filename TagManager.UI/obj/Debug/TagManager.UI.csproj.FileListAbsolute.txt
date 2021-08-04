@@ -84,7 +84,6 @@ C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.IoPane
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.TagCommentEditPanel.resources
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.IoTagItemEditPanel.resources
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.IoMsgTagPanel.resources
-C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.MembersPanel.resources
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.MemoryDiscreteTagPanel.resources
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.MemoryAnalogTagPanel.resources
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.UserControls.MemoryMsgTagPanel.resources
@@ -94,3 +93,4 @@ C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.csproj.CoreCompileI
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.csproj.CopyComplete
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.exe
 C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.pdb
+C:\Projects\TagManager\TagManager.UI\obj\Debug\TagManager.UI.Dialogs.FrmImportExportOptions.resources

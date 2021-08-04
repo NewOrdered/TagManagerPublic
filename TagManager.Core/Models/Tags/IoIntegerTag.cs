@@ -3,7 +3,7 @@
 namespace TagManager.Core.Models
 {
     [Serializable]
-    public class IoIntegerTag: IoAnalogTag, IListItem
+    public class IoIntegerTag: IoAnalogTag
     {
         public override string ToString()
         {

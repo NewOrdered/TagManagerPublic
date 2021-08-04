@@ -92,7 +92,7 @@ namespace TagManager.Core.Models
 
         public void ExportItems(string filePath)
         {
-            tagExporter.Export(AllItems, AlarmGroups,  AccessNames, filePath);
+            tagExporter.Export(AllItems, AlarmGroups, AccessNames, DBLoadMode.ToString(), filePath);
         }
         public ReturnResult ImportItems(string filePath)
         {
@@ -144,12 +144,16 @@ namespace TagManager.Core.Models
                     accessNameManager.Add(newAccessName);
                     
                 }
+
+                DBLoadMode = tagImporter.DBLoadMode;
             }
 
             return result;
         }
 
-        public int GetTotlaTagsCount()
+        public DBLoadMode DBLoadMode { get; set; }
+
+        public int GetTotalTagsCount()
         {
             int result = 0;
 

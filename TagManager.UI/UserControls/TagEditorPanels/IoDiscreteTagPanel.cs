@@ -1,32 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using TagManager.Core.Models;
 
 namespace TagManager.UI.UserControls
 {
-    public partial class IoDiscreteTagPanel : UserControl, ITagEditorPanel
+    public partial class IoDiscreteTagPanel : TagPanel
     {
         public IoDiscreteTagPanel()
         {
             InitializeComponent();
         }
 
-        public EventHandler Applied = delegate { };
-
-        public IoDiscreteTag IoDiscreteTag { get; private set; }
-        private AlarmGroupManager alarmGroupManager;
-        
         public void Build(IoDiscreteTag tag, AlarmGroupManager manager, AccessNameManager accessNameManager, List<IListItem> listItems)
         {
-            IoDiscreteTag = tag;
-            alarmGroupManager = manager;
-            
-            lblType.Text = IoDiscreteTag.ToString();
+            SetLabelType(tag.ToString());
 
-            commonPanel.Build(IoDiscreteTag.Common, alarmGroupManager, listItems);
-            ioPanel.Build(IoDiscreteTag.Io, accessNameManager);
-            discretePanel.Build(IoDiscreteTag.Discrete);
+            commonPanel.Build(tag.Common, manager, listItems);
+            ioPanel.Build(tag.Io, accessNameManager);
+            discretePanel.Build(tag.Discrete);
         }
 
         public void UpdateFromModel()
@@ -35,7 +26,7 @@ namespace TagManager.UI.UserControls
             commonPanel.Update(commonPanel.Common);
         }
 
-        public bool Apply()
+        public override bool Apply()
         {
             ReturnResult ApplyCommon = commonPanel.Apply();
 
@@ -49,19 +40,6 @@ namespace TagManager.UI.UserControls
                 MessageBox.Show(ApplyCommon.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
             }
             return ApplyCommon.Success;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (Apply())
-            {
-                OnApplied();
-            }
-        }
-
-        protected void OnApplied()
-        {
-            Applied(this, EventArgs.Empty);
         }
     }
 }

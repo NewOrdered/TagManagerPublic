@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TagManager.Core.Models
 {
     [Serializable]
-    public abstract class IoAnalogTag : IIoTag
+    public abstract class IoAnalogTag : IIoTag, IListItem
     {
         public Common Common { get; set; } = new Common();
         public Analog Analog { get; set; } = new Analog();

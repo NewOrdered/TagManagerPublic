@@ -69,6 +69,12 @@
     <Compile Include="Dialogs\FrmAddModifySuperTagTemplate.Designer.cs">
       <DependentUpon>FrmAddModifySuperTagTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\FrmImportExportOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FrmImportExportOptions.Designer.cs">
+      <DependentUpon>FrmImportExportOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\FrmManageAccessNames.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,11 +153,47 @@
     <Compile Include="UserControls\Base\IndirectPanel.Designer.cs">
       <DependentUpon>IndirectPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.Designer.cs">
+      <DependentUpon>MemoryDiscreteTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.Designer.cs">
+      <DependentUpon>MemoryAnalogTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoMsgTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoMsgTagPanel.Designer.cs">
+      <DependentUpon>IoMsgTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.Designer.cs">
+      <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoAnalogTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\IoAnalogTagPanel.Designer.cs">
+      <DependentUpon>IoAnalogTagPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TagEditorPanels\IndirectTagPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\TagEditorPanels\IndirectTagPanel.Designer.cs">
       <DependentUpon>IndirectTagPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.Designer.cs">
+      <DependentUpon>MemoryMsgTagPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TagPartEditPanels\TagCommentEditPanel.cs">
       <SubType>UserControl</SubType>
@@ -199,18 +241,6 @@
     <Compile Include="UserControls\Base\MsgPanel.Designer.cs">
       <DependentUpon>MsgPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.Designer.cs">
-      <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\IoAnalogTagPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\IoAnalogTagPanel.Designer.cs">
-      <DependentUpon>IoAnalogTagPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Base\IoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,40 +253,10 @@
     <Compile Include="UserControls\TagPartEditPanels\IoTagItemEditPanel.Designer.cs">
       <DependentUpon>IoTagItemEditPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TagEditorPanels\IoMsgTagPanel.cs">
+    <Compile Include="UserControls\Base\TagPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\TagEditorPanels\IoMsgTagPanel.Designer.cs">
-      <DependentUpon>IoMsgTagPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\MembersPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\MembersPanel.Designer.cs">
-      <DependentUpon>MembersPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.Designer.cs">
-      <DependentUpon>MemoryDiscreteTagPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.Designer.cs">
-      <DependentUpon>MemoryAnalogTagPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.Designer.cs">
-      <DependentUpon>MemoryMsgTagPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TagPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\TagPanel.Designer.cs">
+    <Compile Include="UserControls\Base\TagPanel.Designer.cs">
       <DependentUpon>TagPanel.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Dialogs\FrmAddModifyAccessName.resx">
@@ -267,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FrmAddModifySuperTagTemplate.resx">
       <DependentUpon>FrmAddModifySuperTagTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FrmImportExportOptions.resx">
+      <DependentUpon>FrmImportExportOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FrmManageAccessNames.resx">
       <DependentUpon>FrmManageAccessNames.cs</DependentUpon>
@@ -335,11 +338,14 @@
     <EmbeddedResource Include="UserControls\Base\IndirectPanel.resx">
       <DependentUpon>IndirectPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.resx">
+      <DependentUpon>MemoryAnalogTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\IoMsgTagPanel.resx">
+      <DependentUpon>IoMsgTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TagEditorPanels\IndirectTagPanel.resx">
       <DependentUpon>IndirectTagPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.resx">
-      <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TagEditorPanels\IoAnalogTagPanel.resx">
       <DependentUpon>IoAnalogTagPanel.cs</DependentUpon>
@@ -347,28 +353,22 @@
     <EmbeddedResource Include="UserControls\Base\IoPanel.resx">
       <DependentUpon>IoPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\IoDiscreteTagPanel.resx">
+      <DependentUpon>IoDiscreteTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.resx">
+      <DependentUpon>MemoryDiscreteTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.resx">
+      <DependentUpon>MemoryMsgTagPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TagPartEditPanels\TagCommentEditPanel.resx">
       <DependentUpon>TagCommentEditPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TagPartEditPanels\IoTagItemEditPanel.resx">
       <DependentUpon>IoTagItemEditPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TagEditorPanels\IoMsgTagPanel.resx">
-      <DependentUpon>IoMsgTagPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MembersPanel.resx">
-      <DependentUpon>MembersPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryDiscreteTagPanel.resx">
-      <DependentUpon>MemoryDiscreteTagPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryAnalogTagPanel.resx">
-      <DependentUpon>MemoryAnalogTagPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TagEditorPanels\MemoryMsgTagPanel.resx">
-      <DependentUpon>MemoryMsgTagPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TagPanel.resx">
+    <EmbeddedResource Include="UserControls\Base\TagPanel.resx">
       <DependentUpon>TagPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

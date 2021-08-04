@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TagManager.Core.Models;
 
@@ -20,18 +13,22 @@ namespace TagManager.UI.UserControls
 
         public EventHandler Applied = delegate { };
 
-        //private AlarmGroupManager alarmGroupManager;
-
-        public void Build()
+        public virtual void Build(ITag tag)
         {
-
+            lblType.Text = tag.ToString();
+            
         }
 
-        public bool Apply()
+        public void SetLabelType(string tagType)
         {
-            ReturnResult ApplyCommon = commonPanel.Apply();
+            lblType.Text = tagType;
+        }
 
-            return ApplyCommon.Success;
+        
+
+        public virtual bool Apply()
+        {
+            return true;
         }
 
 

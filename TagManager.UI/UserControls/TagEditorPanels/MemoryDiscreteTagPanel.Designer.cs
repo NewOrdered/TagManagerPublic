@@ -3,12 +3,12 @@ namespace TagManager.UI.UserControls
 {
     partial class MemoryDiscreteTagPanel
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -21,18 +21,16 @@ namespace TagManager.UI.UserControls
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+        #region Windows Form Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.discretePanel = new TagManager.UI.UserControls.DiscretePanel();
             this.commonPanel = new TagManager.UI.UserControls.CommonPanel();
-            this.lblType = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // discretePanel
@@ -43,7 +41,7 @@ namespace TagManager.UI.UserControls
             this.discretePanel.Margin = new System.Windows.Forms.Padding(4);
             this.discretePanel.Name = "discretePanel";
             this.discretePanel.Size = new System.Drawing.Size(495, 98);
-            this.discretePanel.TabIndex = 5;
+            this.discretePanel.TabIndex = 10;
             // 
             // commonPanel
             // 
@@ -53,42 +51,16 @@ namespace TagManager.UI.UserControls
             this.commonPanel.Margin = new System.Windows.Forms.Padding(4);
             this.commonPanel.Name = "commonPanel";
             this.commonPanel.Size = new System.Drawing.Size(495, 160);
-            this.commonPanel.TabIndex = 4;
+            this.commonPanel.TabIndex = 9;
             // 
-            // lblType
-            // 
-            this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(4, 7);
-            this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(54, 16);
-            this.lblType.TabIndex = 3;
-            this.lblType.Text = "<Type>";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Location = new System.Drawing.Point(404, 372);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 28);
-            this.btnSave.TabIndex = 6;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // MemoryDiscreteTagPanel
+            // MemoryDiscreteTagPanelNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.discretePanel);
             this.Controls.Add(this.commonPanel);
-            this.Controls.Add(this.lblType);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "MemoryDiscreteTagPanel";
-            this.Size = new System.Drawing.Size(513, 407);
+            this.Name = "MemoryDiscreteTagPanelNew";
+            this.Controls.SetChildIndex(this.commonPanel, 0);
+            this.Controls.SetChildIndex(this.discretePanel, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,7 +70,5 @@ namespace TagManager.UI.UserControls
 
         private DiscretePanel discretePanel;
         private CommonPanel commonPanel;
-        private System.Windows.Forms.Label lblType;
-        private System.Windows.Forms.Button btnSave;
     }
 }

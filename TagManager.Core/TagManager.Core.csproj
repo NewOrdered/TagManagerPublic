@@ -62,6 +62,7 @@
     <Compile Include="Models\Interface\IListItem.cs" />
     <Compile Include="Models\Logger\ILogger.cs" />
     <Compile Include="Models\Interface\ITag.cs" />
+    <Compile Include="Models\PortOptions.cs" />
     <Compile Include="Models\Serializer\ISerializer.cs" />
     <Compile Include="Models\ReturnResult.cs" />
     <Compile Include="Models\Serializer\SingletonXmlSerializer.cs" />

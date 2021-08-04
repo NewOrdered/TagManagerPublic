@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 using TagManager.Core.Models;
 using TagManager.UI.UserControls;
 using TagManager.UI.Dialogs;
@@ -14,6 +15,7 @@ namespace TagManager.UI
         public FrmMain(TagStorage storage, TemplateManager _templateManager)
         {
             InitializeComponent();
+            InitializeEvents();
 
             DoubleBuffered = true;
 
@@ -21,74 +23,25 @@ namespace TagManager.UI
             templateManager = _templateManager;
 
             templateManager.LoadSuperTagTemplates();
-            
-            dataListViewAllTags.SelectionChanged += DataListViewAllTags_SelectionChanged;
-            dataListViewMembers.SelectionChanged += DataListViewMembers_SelectionChanged;
-            dataListViewAllTags.CellRightClick += DataListViewAllTags_CellRightClick;
-            dataListViewMembers.CellRightClick += DataListViewMembers_CellRightClick;
-            dataListViewAllTags.ItemsChanged += DataListViewAllTags_ItemsChanged;
-            dataListViewMembers.ItemsChanged += DataListViewMembers_ItemsChanged;
-            dataListViewAllTags.EmptyListMsg = "The list is empty.";
 
+
+            dataListViewAllTags.EmptyListMsg = "The list is empty.";
             dataListViewAllTags.OwnerDraw = true;
             dataListViewMembers.OwnerDraw = true;
 
+            
+
             nameColumn.ImageGetter = delegate (object x)
             {
-                switch (x.GetType().Name)
-                {
-                    case nameof(SuperTag): return 1;
-
-                    case nameof(MemoryDiscreteTag):
-                    case nameof(IoDiscreteTag): return 0;
-
-                    case nameof(MemoryIntegerTag):
-                    case nameof(IoIntegerTag): return 2;
-
-                    case nameof(MemoryRealTag):
-                    case nameof(IoRealTag): return 4;
-
-                    case nameof(MemoryMsgTag):
-                    case nameof(IoMsgTag): return 3;
-
-                    case nameof(IndirectDiscreteTag):
-                    case nameof(IndirectAnalogTag):
-                    case nameof(IndirectMsgTag): return 5;
-
-                }
-                return -1;
+                return GetImageIndex(x);
             };
 
             memberNameColumn.ImageGetter = delegate (object x)
             {
-                switch (x.GetType().Name)
-                {
-                    case nameof(SuperTag): return 1;
-
-                    case nameof(MemoryDiscreteTag):
-                    case nameof(IoDiscreteTag): return 0;
-
-                    case nameof(MemoryIntegerTag):
-                    case nameof(IoIntegerTag): return 2;
-
-                    case nameof(MemoryRealTag):
-                    case nameof(IoRealTag): return 4;
-
-                    case nameof(MemoryMsgTag):
-                    case nameof(IoMsgTag): return 3;
-
-                    case nameof(IndirectDiscreteTag):
-                    case nameof(IndirectAnalogTag):
-                    case nameof(IndirectMsgTag): return 5;
-
-                }
-                return -1;
+                return GetImageIndex(x);
             };
 
-            bsMembers.ListChanged += BsMembers_ListChanged;
-            bsAllItems.ListChanged += BsAllItems_ListChanged;
-
-            FormClosing += FrmMain_FormClosing;
+            
 
             bsAllItems.DataSource = tagStorage.AllItems;
             dataListViewAllTags.DataSource = bsAllItems;
@@ -99,9 +52,57 @@ namespace TagManager.UI
             btnDeleteItem.Enabled = false;
             btnDuplicateItem.Enabled = false;
 
-
+            SetSelectedModeMenuItem();
             HideMembers();
             
+        }
+
+        private void InitializeEvents()
+        {
+            dataListViewAllTags.SelectionChanged += DataListViewAllTags_SelectionChanged;
+            dataListViewMembers.SelectionChanged += DataListViewMembers_SelectionChanged;
+            dataListViewAllTags.CellRightClick += DataListViewAllTags_CellRightClick;
+            dataListViewMembers.CellRightClick += DataListViewMembers_CellRightClick;
+            dataListViewAllTags.ItemsChanged += DataListViewAllTags_ItemsChanged;
+            dataListViewMembers.ItemsChanged += DataListViewMembers_ItemsChanged;
+
+            bsMembers.ListChanged += BsMembers_ListChanged;
+            bsAllItems.ListChanged += BsAllItems_ListChanged;
+
+            FormClosing += FrmMain_FormClosing;
+
+
+            toolStripMenuModeAsk.Click += toolStripMenuMode_Click;
+            toolStripMenuModeIgnore.Click += toolStripMenuMode_Click;
+            toolStripMenuModeReplace.Click += toolStripMenuMode_Click;
+            toolStripMenuModeTerminate.Click += toolStripMenuMode_Click;
+            toolStripMenuModeUpdate.Click += toolStripMenuMode_Click;
+            toolStripMenuModeTest.Click += toolStripMenuMode_Click;
+        }
+
+        private int GetImageIndex(object obj)
+        {
+            switch (obj.GetType().Name)
+            {
+                case nameof(SuperTag): return 1;
+
+                case nameof(MemoryDiscreteTag):
+                case nameof(IoDiscreteTag): return 0;
+
+                case nameof(MemoryIntegerTag):
+                case nameof(IoIntegerTag): return 2;
+
+                case nameof(MemoryRealTag):
+                case nameof(IoRealTag): return 4;
+
+                case nameof(MemoryMsgTag):
+                case nameof(IoMsgTag): return 3;
+
+                case nameof(IndirectDiscreteTag):
+                case nameof(IndirectAnalogTag):
+                case nameof(IndirectMsgTag): return 5;
+            }
+            return 6;
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -396,7 +397,7 @@ namespace TagManager.UI
 
         private int GetTotalTagsCount()
         {
-            return tagStorage.GetTotlaTagsCount();
+            return tagStorage.GetTotalTagsCount();
         }
 
         private void SetLabelTextMembersCount()
@@ -477,6 +478,7 @@ namespace TagManager.UI
                     importProgress.ShowDialog();
                     if(importProgress.Result.Success)
                     {
+                        SetSelectedModeMenuItem();
                         bsAllItems.ResetBindings(true);
                         MessageBox.Show(importProgress.Result.Message, "Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -500,6 +502,20 @@ namespace TagManager.UI
                     MessageBox.Show(ex.Message + "\n" + lowestInnerExceptionMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void SetSelectedModeMenuItem()
+        {
+           toolStripMenuDBLoadMode.DropDownItems
+                    .OfType<ToolStripMenuItem>().ToList()
+                    .ForEach(item =>
+                    {
+                        item.Checked = false;
+                        if(string.Equals(item.Text, tagStorage.DBLoadMode.ToString(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            item.Checked = true;
+                        }
+                    });
         }
 
         private void btnDeleteMember_Click(object sender, EventArgs e)
@@ -594,26 +610,7 @@ namespace TagManager.UI
 
         private Image GetTagIcon(ITag tag)
         {
-            switch (tag.GetType().Name)
-            {
-                case nameof(MemoryDiscreteTag):
-                case nameof(IoDiscreteTag): return tagIcons.Images[0];
-
-                case nameof(MemoryIntegerTag):
-                case nameof(IoIntegerTag): return tagIcons.Images[2];
-
-                case nameof(MemoryRealTag):
-                case nameof(IoRealTag): return tagIcons.Images[4];
-
-                case nameof(MemoryMsgTag):
-                case nameof(IoMsgTag): return tagIcons.Images[3];
-
-                case nameof(IndirectDiscreteTag):
-                case nameof(IndirectAnalogTag):
-                case nameof(IndirectMsgTag): return tagIcons.Images[5];
-
-            }
-            return new Bitmap(1, 1);
+            return tagIcons.Images[GetImageIndex(tag)];
         }
 
         private void UpdateEditorFromModel()
@@ -732,6 +729,23 @@ namespace TagManager.UI
         private void tStripMenuSuperTagCreateIndirect_Click(object sender, EventArgs e)
         {
             ProcessNewIndirectFromSuperTag(rightClickedObjectCollection, rightClickedObject);
+        }
+
+        private void toolStripMenuMode_Click(object sender, EventArgs e)
+        {
+            var currentItem = sender as ToolStripMenuItem;
+            if (currentItem != null)
+            {
+                ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems
+                    .OfType<ToolStripMenuItem>().ToList()
+                    .ForEach(item =>
+                    {
+                        item.Checked = false;
+                    });
+
+                currentItem.Checked = true;
+                tagStorage.DBLoadMode = (DBLoadMode)Enum.Parse(typeof(DBLoadMode), currentItem.Text, true);
+            }
         }
     }
 }
