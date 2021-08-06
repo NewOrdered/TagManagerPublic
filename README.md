@@ -12,4 +12,4 @@ Features:
 - supertag members I/O multi edit with find/replace
 - supertag members comments multi edit with find/replace
 
-[img]https://i.imgur.com/tagHoke.png[/img]
+<a href="https://imgur.com/tagHoke"><img src="https://i.imgur.com/tagHoke.png" title="source: imgur.com" /></a>
