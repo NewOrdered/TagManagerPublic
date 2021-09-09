@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace TagManager.Core.Models
 {
@@ -9,6 +10,7 @@ namespace TagManager.Core.Models
         public Discrete Discrete { get; set; } = new Discrete();
         public Io Io { get; set; } = new Io();
 
+        [XmlIgnore]
         public string Name
         { 
             get

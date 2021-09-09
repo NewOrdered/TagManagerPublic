@@ -212,7 +212,23 @@ namespace TagManager.Core.Models
                 }
             }
 
-            string importResults = string.Format("Import finished. {0} error(s), {1} warnings", importErrorCount, importWarningCount);
+            string importResults = string.Format("Import finished. {0} error(s), {1} warnings\n\n" +
+                                                 "Import statistics:\n" +
+                                                 "{2}\t{6}\n" + 
+                                                 "{3}\t{7}\n" + 
+                                                 "{4}\t\t{8}\n" + 
+                                                 "{5}\t{9}", 
+                                                    importErrorCount, 
+                                                    importWarningCount,
+                                                    "Alarm Groups:",
+                                                    "Access Names:",
+                                                    "Items:",
+                                                    "Total Tags:",
+                                                    importedAlarmGoups.Count,
+                                                    importedAccessNames.Count,
+                                                    importedItems.Count,
+                                                    importedItems.GetTotalTagCount());
+
             LogInfo(string.Format("{0}\t{1}", DateTime.Now, importResults));
             result.Success = true;
             result.Message = importResults;
@@ -712,10 +728,7 @@ namespace TagManager.Core.Models
             string[] headers = line.Split(';');
             switch (headers[0])
             {
-                //case ":mode":
-                //    result = SectionHeader.Mode;
-                //    break;
-                
+               
                 case ":AlarmGroup":
                     result = SectionHeader.AlarmGroup;
                     break;
@@ -784,8 +797,7 @@ namespace TagManager.Core.Models
         {
             string modeString = modeHeader.Substring(modeHeader.LastIndexOf("=") + 1);
 
-            DBLoadMode mode;
-            if (Enum.TryParse(modeString, true, out mode))
+            if (Enum.TryParse(modeString, true, out DBLoadMode mode))
             {
                 DBLoadMode = mode;
             }

@@ -44,6 +44,7 @@
             this.gBoxMembers = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pBoxSelectedSuperTag = new System.Windows.Forms.PictureBox();
             this.lblMembersCount = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnCopyComments = new System.Windows.Forms.Button();
@@ -69,6 +70,8 @@
             this.toolStripMenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tStripMenuImport = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuIExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripFileSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuSpecial = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuAlarmGroups = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuAccessNames = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +94,7 @@
             this.gBoxMembers.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxSelectedSuperTag)).BeginInit();
             this.panel4.SuspendLayout();
             this.cMenuStripSelectedObject.SuspendLayout();
             this.cMenuStripSelectedSuperTag.SuspendLayout();
@@ -223,7 +227,7 @@
             this.lblSelectedSuperTagName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblSelectedSuperTagName.AutoSize = true;
             this.lblSelectedSuperTagName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSelectedSuperTagName.Location = new System.Drawing.Point(4, 4);
+            this.lblSelectedSuperTagName.Location = new System.Drawing.Point(28, 4);
             this.lblSelectedSuperTagName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelectedSuperTagName.Name = "lblSelectedSuperTagName";
             this.lblSelectedSuperTagName.Size = new System.Drawing.Size(65, 16);
@@ -262,6 +266,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.pBoxSelectedSuperTag);
             this.panel3.Controls.Add(this.lblSelectedSuperTagName);
             this.panel3.Controls.Add(this.lblMembersCount);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -269,6 +274,14 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(390, 22);
             this.panel3.TabIndex = 9;
+            // 
+            // pBoxSelectedSuperTag
+            // 
+            this.pBoxSelectedSuperTag.Location = new System.Drawing.Point(5, 3);
+            this.pBoxSelectedSuperTag.Name = "pBoxSelectedSuperTag";
+            this.pBoxSelectedSuperTag.Size = new System.Drawing.Size(16, 16);
+            this.pBoxSelectedSuperTag.TabIndex = 10;
+            this.pBoxSelectedSuperTag.TabStop = false;
             // 
             // lblMembersCount
             // 
@@ -488,7 +501,9 @@
             // 
             this.toolStripMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tStripMenuImport,
-            this.toolStripMenuIExport});
+            this.toolStripMenuIExport,
+            this.toolStripFileSeparator1,
+            this.toolStripMenuExit});
             this.toolStripMenuFile.Name = "toolStripMenuFile";
             this.toolStripMenuFile.Size = new System.Drawing.Size(42, 20);
             this.toolStripMenuFile.Text = "File";
@@ -507,6 +522,18 @@
             this.toolStripMenuIExport.Text = "Export...";
             this.toolStripMenuIExport.Click += new System.EventHandler(this.toolStripMenuIExport_Click);
             // 
+            // toolStripFileSeparator1
+            // 
+            this.toolStripFileSeparator1.Name = "toolStripFileSeparator1";
+            this.toolStripFileSeparator1.Size = new System.Drawing.Size(120, 6);
+            // 
+            // toolStripMenuExit
+            // 
+            this.toolStripMenuExit.Name = "toolStripMenuExit";
+            this.toolStripMenuExit.Size = new System.Drawing.Size(123, 22);
+            this.toolStripMenuExit.Text = "Exit";
+            this.toolStripMenuExit.Click += new System.EventHandler(this.toolStripMenuExit_Click);
+            // 
             // toolStripMenuSpecial
             // 
             this.toolStripMenuSpecial.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -521,21 +548,21 @@
             // toolStripMenuAlarmGroups
             // 
             this.toolStripMenuAlarmGroups.Name = "toolStripMenuAlarmGroups";
-            this.toolStripMenuAlarmGroups.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuAlarmGroups.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuAlarmGroups.Text = "Alarm Groups...";
             this.toolStripMenuAlarmGroups.Click += new System.EventHandler(this.toolStripMenuAlarmGroups_Click);
             // 
             // toolStripMenuAccessNames
             // 
             this.toolStripMenuAccessNames.Name = "toolStripMenuAccessNames";
-            this.toolStripMenuAccessNames.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuAccessNames.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuAccessNames.Text = "Access Names...";
             this.toolStripMenuAccessNames.Click += new System.EventHandler(this.toolStripMenuAccessNames_Click);
             // 
             // toolStripMenuTemplates
             // 
             this.toolStripMenuTemplates.Name = "toolStripMenuTemplates";
-            this.toolStripMenuTemplates.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuTemplates.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuTemplates.Text = "Templates...";
             this.toolStripMenuTemplates.Click += new System.EventHandler(this.toolStripMenuTemplates_Click);
             // 
@@ -549,49 +576,48 @@
             this.toolStripMenuModeTerminate,
             this.toolStripMenuModeTest});
             this.toolStripMenuDBLoadMode.Name = "toolStripMenuDBLoadMode";
-            this.toolStripMenuDBLoadMode.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuDBLoadMode.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuDBLoadMode.Text = "DBLoad Mode";
-            
             // 
             // toolStripMenuModeReplace
             // 
             this.toolStripMenuModeReplace.Name = "toolStripMenuModeReplace";
-            this.toolStripMenuModeReplace.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeReplace.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuModeReplace.Tag = "Replace";
             this.toolStripMenuModeReplace.Text = "Replace";
             // 
             // toolStripMenuModeUpdate
             // 
             this.toolStripMenuModeUpdate.Name = "toolStripMenuModeUpdate";
-            this.toolStripMenuModeUpdate.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeUpdate.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuModeUpdate.Tag = "Update";
             this.toolStripMenuModeUpdate.Text = "Update";
             // 
             // toolStripMenuModeAsk
             // 
             this.toolStripMenuModeAsk.Name = "toolStripMenuModeAsk";
-            this.toolStripMenuModeAsk.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeAsk.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuModeAsk.Tag = "Ask";
             this.toolStripMenuModeAsk.Text = "Ask";
             // 
             // toolStripMenuModeIgnore
             // 
             this.toolStripMenuModeIgnore.Name = "toolStripMenuModeIgnore";
-            this.toolStripMenuModeIgnore.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeIgnore.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuModeIgnore.Tag = "Ignore";
             this.toolStripMenuModeIgnore.Text = "Ignore";
             // 
             // toolStripMenuModeTerminate
             // 
             this.toolStripMenuModeTerminate.Name = "toolStripMenuModeTerminate";
-            this.toolStripMenuModeTerminate.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeTerminate.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuModeTerminate.Tag = "Terminate";
             this.toolStripMenuModeTerminate.Text = "Terminate";
             // 
             // toolStripMenuModeTest
             // 
             this.toolStripMenuModeTest.Name = "toolStripMenuModeTest";
-            this.toolStripMenuModeTest.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuModeTest.Size = new System.Drawing.Size(137, 22);
             this.toolStripMenuModeTest.Tag = "Test";
             this.toolStripMenuModeTest.Text = "Test";
             // 
@@ -681,6 +707,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStripMain);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1206, 794);
@@ -692,6 +719,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxSelectedSuperTag)).EndInit();
             this.panel4.ResumeLayout(false);
             this.cMenuStripSelectedObject.ResumeLayout(false);
             this.cMenuStripSelectedSuperTag.ResumeLayout(false);
@@ -764,6 +792,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeIgnore;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeTerminate;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuModeTest;
+        private System.Windows.Forms.ToolStripSeparator toolStripFileSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
+        private System.Windows.Forms.PictureBox pBoxSelectedSuperTag;
     }
 }
 

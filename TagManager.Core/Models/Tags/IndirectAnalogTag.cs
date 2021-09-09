@@ -3,7 +3,7 @@
 namespace TagManager.Core.Models
 {
     [Serializable]
-    public class IndirectAnalogTag: IndirectTag, IListItem
+    public class IndirectAnalogTag: IndirectTag
     {
         public override string ToString()
         {

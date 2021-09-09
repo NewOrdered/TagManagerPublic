@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace TagManager.Core.Models
 {
     [Serializable]
-    public abstract class IndirectTag : ITag
+    public abstract class IndirectTag : ITag, IListItem
     {
         public Common Common { get; set; } = new Common();
 
         public string SymbolicName { get; set; }
 
+        [XmlIgnore]
         public string Name
         {
             get
@@ -24,7 +26,7 @@ namespace TagManager.Core.Models
         }
         public string Type
         {
-            get { return this.ToString(); }
+            get { return ToString(); }
         }
 
         public static SuperTag IndirectFromSuperTag(SuperTag superTag, string name)

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TagManager.Core.Models
 {
@@ -14,6 +11,7 @@ namespace TagManager.Core.Models
         public Io Io { get; set; } = new Io();
         public IoAnalog IoAnalog { get; set; } = new IoAnalog();
 
+        [XmlIgnore]
         public string Name
         {
             get

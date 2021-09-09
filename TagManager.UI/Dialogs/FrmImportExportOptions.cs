@@ -35,12 +35,13 @@ namespace TagManager.UI.Dialogs
 
         private void OkCancelButtonsPanel_BtnCancelClicked(object sender, EventArgs e)
         {
-            Apply();
+            
             DialogResult = DialogResult.Cancel;
         }
 
         private void OkCancelButtonsPanel_BtnOkClicked(object sender, EventArgs e)
         {
+            Apply();
             DialogResult = DialogResult.OK;
         }
 

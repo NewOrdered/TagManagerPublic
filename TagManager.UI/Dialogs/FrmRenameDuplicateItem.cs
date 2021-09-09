@@ -16,12 +16,15 @@ namespace TagManager.UI.Dialogs
 
         public string ItemName;
         private List<IListItem> items;
+        private int maxNameLength;
 
-        public void Build(string itemName, List<IListItem> items)
+        public void Build(string _itemName, List<IListItem> _items, int _maxNameLength)
         {
-            ItemName = itemName;
-            this.items = items;
+            ItemName = _itemName;
+            items = _items;
             tBoxName.Text = ItemName;
+            maxNameLength = _maxNameLength;
+            lblMaxNameLength.Text = _maxNameLength.ToString();
         }
 
         public void Apply()

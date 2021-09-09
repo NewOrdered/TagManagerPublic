@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace TagManager.Core.Models
@@ -153,21 +149,11 @@ namespace TagManager.Core.Models
 
         public DBLoadMode DBLoadMode { get; set; }
 
-        public int GetTotalTagsCount()
+        public int GetTotalTagCount()
         {
-            int result = 0;
-
-            foreach (IListItem item in AllItems)
-            {
-                if (item is ITag)
-                    result++;
-                if (item is SuperTag)
-                {
-                    result += (item as SuperTag).Members.Count;
-                }
-            }
-
-            return result;
+            return AllItems.GetTotalTagCount();
         }
+
+
     }
 }

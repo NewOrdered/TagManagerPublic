@@ -12,8 +12,8 @@ namespace TagManager.UI.UserControls
         {
             InitializeComponent();
             alarmGroupManager = manager;
-            this.GotFocus += IoTagCommentEditPanel_GotFocus;
-            this.LostFocus += IoTagCommentEditPanel_LostFocus;
+            GotFocus += IoTagCommentEditPanel_GotFocus;
+            LostFocus += IoTagCommentEditPanel_LostFocus;
             tBoxAlarmComment.LostFocus += TBoxAlarmComment_LostFocus;
         }
 

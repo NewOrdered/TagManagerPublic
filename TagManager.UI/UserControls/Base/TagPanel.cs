@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using TagManager.Core.Models;
 
@@ -9,6 +10,12 @@ namespace TagManager.UI.UserControls
         public TagPanel()
         {
             InitializeComponent();
+        }
+
+        public Image TagIcon
+        {
+            get { return pBoxTagIcon.Image; }
+            set { pBoxTagIcon.Image = value; }
         }
 
         public EventHandler Applied = delegate { };

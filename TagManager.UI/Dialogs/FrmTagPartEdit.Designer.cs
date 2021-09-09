@@ -146,7 +146,7 @@ namespace TagManager.UI.Dialogs
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Edit I/O Items";
+            this.Text = "< Edit multiple items >";
             this.ResumeLayout(false);
             this.PerformLayout();
 

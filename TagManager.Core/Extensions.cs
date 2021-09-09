@@ -62,6 +62,23 @@ namespace TagManager.Core
 
             return result;
         }
+
+        public static int GetTotalTagCount(this List<IListItem> list)
+        {
+            int result = 0;
+
+            foreach (IListItem item in list)
+            {
+                if (item is ITag)
+                    result++;
+                if (item is SuperTag)
+                {
+                    result += (item as SuperTag).Members.Count;
+                }
+            }
+
+            return result;
+        }
         
     }
 }

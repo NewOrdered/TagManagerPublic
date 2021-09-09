@@ -3,23 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using System.Drawing;
 using TagManager.Core.Models;
 using TagManager.UI.UserControls;
 using TagManager.UI.Dialogs;
-using System.Drawing;
+
 
 namespace TagManager.UI
 {
     public partial class FrmMain : Form
     {
-        public FrmMain(TagStorage storage, TemplateManager _templateManager)
+        public FrmMain(TagStorage _tagStorage, TemplateManager _templateManager)
         {
             InitializeComponent();
             InitializeEvents();
 
-            DoubleBuffered = true;
-
-            tagStorage = storage;
+            tagStorage = _tagStorage;
             templateManager = _templateManager;
 
             templateManager.LoadSuperTagTemplates();
@@ -41,7 +40,7 @@ namespace TagManager.UI
                 return GetImageIndex(x);
             };
 
-            
+            pBoxSelectedSuperTag.Image = tagIcons.Images["folder"];
 
             bsAllItems.DataSource = tagStorage.AllItems;
             dataListViewAllTags.DataSource = bsAllItems;
@@ -281,13 +280,22 @@ namespace TagManager.UI
 
             if (tag != null)
             {
-                if (tag is IoDiscreteTag) new IoDiscreteTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as IoDiscreteTag, tagStorage.AlarmGroupManager, tagStorage.AccessNameManager, items);
-                if (tag is IoAnalogTag) new IoAnalogTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as IoAnalogTag, tagStorage.AlarmGroupManager, tagStorage.AccessNameManager, items);
-                if (tag is IoMsgTag) new IoMsgTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as IoMsgTag, tagStorage.AlarmGroupManager, tagStorage.AccessNameManager, items);
-                if (tag is MemoryDiscreteTag) new MemoryDiscreteTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as MemoryDiscreteTag, tagStorage.AlarmGroupManager, items);
-                if (tag is MemoryAnalogTag) new MemoryAnalogTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as MemoryAnalogTag, tagStorage.AlarmGroupManager, items);
-                if (tag is MemoryMsgTag) new MemoryMsgTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as MemoryMsgTag, tagStorage.AlarmGroupManager, items);
-                if (tag is IndirectTag) new IndirectTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, Applied = OnEditorPanelApplied }.Build(tag as IndirectTag, tagStorage.AlarmGroupManager, items);
+                Image tagIcon = GetTagIcon(tag);
+
+                if (tag is IoDiscreteTag) new IoDiscreteTagPanel 
+                { 
+                    Parent = pnEditor, 
+                    Dock = DockStyle.Fill, 
+                    TagIcon = tagIcon, 
+                    Applied = OnEditorPanelApplied 
+                }.Build(tag as IoDiscreteTag, tagStorage.AlarmGroupManager, tagStorage.AccessNameManager, items);
+
+                if (tag is IoAnalogTag) new IoAnalogTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, TagIcon = tagIcon, Applied = OnEditorPanelApplied }.Build(tag as IoAnalogTag, tagStorage.AlarmGroupManager, tagStorage.AccessNameManager, items);
+                if (tag is IoMsgTag) new IoMsgTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, TagIcon = tagIcon, Applied = OnEditorPanelApplied }.Build(tag as IoMsgTag, tagStorage.AlarmGroupManager, tagStorage.AccessNameManager, items);
+                if (tag is MemoryDiscreteTag) new MemoryDiscreteTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, TagIcon = tagIcon, Applied = OnEditorPanelApplied }.Build(tag as MemoryDiscreteTag, tagStorage.AlarmGroupManager, items);
+                if (tag is MemoryAnalogTag) new MemoryAnalogTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, TagIcon = tagIcon, Applied = OnEditorPanelApplied }.Build(tag as MemoryAnalogTag, tagStorage.AlarmGroupManager, items);
+                if (tag is MemoryMsgTag) new MemoryMsgTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, TagIcon = tagIcon, Applied = OnEditorPanelApplied }.Build(tag as MemoryMsgTag, tagStorage.AlarmGroupManager, items);
+                if (tag is IndirectTag) new IndirectTagPanel { Parent = pnEditor, Dock = DockStyle.Fill, TagIcon = tagIcon, Applied = OnEditorPanelApplied }.Build(tag as IndirectTag, tagStorage.AlarmGroupManager, items);
             }
         }
 
@@ -341,8 +349,26 @@ namespace TagManager.UI
             {
                 var newItem = tagStorage.Copy(originalItem);
 
+                int maxNameLength;
+
+                if(newItem is SuperTag)
+                {
+                    maxNameLength = (newItem as SuperTag).MaxNameLength;
+                }
+                else
+                {
+                    if(selectedSuperTag == null)
+                    {
+                        maxNameLength = 32;
+                    }
+                    else 
+                    {
+                        maxNameLength = 32 - newItem.Name.Length;
+                    }
+                }
+
                 frm.Text = "Duplicate";
-                frm.Build(newItem.Name, list);
+                frm.Build(newItem.Name, list, maxNameLength);
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -362,7 +388,10 @@ namespace TagManager.UI
                 {
                     var newItem = IndirectTag.IndirectFromSuperTag(originalItem as SuperTag, "NewIndirectTag");
                     frm.Text = "New Indirect";
-                    frm.Build(newItem.Name, list);
+
+                    int maxNameLength = newItem.MaxNameLength;
+
+                    frm.Build(newItem.Name, list, maxNameLength);
                     var result = frm.ShowDialog();
                     if (result == DialogResult.OK)
                     {
@@ -392,12 +421,12 @@ namespace TagManager.UI
 
         private void SetLabelTextItemsCount()
         {
-            lblTotalItemsCount.Text = string.Format("{0} item(s). Total: {1} tag(s)", dataListViewAllTags.Items.Count, GetTotalTagsCount());
+            lblTotalItemsCount.Text = string.Format("{0} item(s). Total: {1} tag(s)", dataListViewAllTags.Items.Count, GetTotalTagCount());
         }
 
-        private int GetTotalTagsCount()
+        private int GetTotalTagCount()
         {
-            return tagStorage.GetTotalTagsCount();
+            return tagStorage.GetTotalTagCount();
         }
 
         private void SetLabelTextMembersCount()
@@ -441,7 +470,10 @@ namespace TagManager.UI
             using (var frm = new FrmRenameDuplicateItem())
             {
                 frm.Text = "Rename";
-                frm.Build(rightClickedObject.Name, rightClickedObjectCollection);
+
+                int maxNameLength = (rightClickedObject as SuperTag).MaxNameLength;
+
+                frm.Build(rightClickedObject.Name, rightClickedObjectCollection, maxNameLength);
                 var result = frm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
@@ -504,7 +536,7 @@ namespace TagManager.UI
             }
         }
 
-        private void SetSelectedModeMenuItem()
+        private void SetSelectedModeMenuItem() //Sets selected item in dropdown menu Special > DBLoad Mode..
         {
            toolStripMenuDBLoadMode.DropDownItems
                     .OfType<ToolStripMenuItem>().ToList()
@@ -578,8 +610,10 @@ namespace TagManager.UI
         }
 
         
-        private string findText = string.Empty;
-        private string replaceText = string.Empty;
+        private string findIoText = string.Empty;
+        private string replaceIoText = string.Empty;
+        private string findCommentText = string.Empty;
+        private string replaceCommentText = string.Empty;
 
         private void btnEditIoItems_Click(object sender, EventArgs e)
         {
@@ -597,11 +631,12 @@ namespace TagManager.UI
                     }
                 }
 
-                FrmTagPartEdit frm = new FrmTagPartEdit(tagPartEditPanels, findText, replaceText);
+                FrmTagPartEdit frm = new FrmTagPartEdit(tagPartEditPanels, findIoText, replaceIoText);
+                frm.Text = "Edit I/O Items";
                 frm.ShowDialog();
 
-                findText = frm.FindTextSave;
-                replaceText = frm.ReplaceTextSave;
+                findIoText = frm.FindTextSave;
+                replaceIoText = frm.ReplaceTextSave;
 
                 UpdateEditorFromModel();
                 
@@ -666,11 +701,12 @@ namespace TagManager.UI
 
                 }
 
-                FrmTagPartEdit frm = new FrmTagPartEdit(tagPartEditPanels, findText, replaceText);
+                FrmTagPartEdit frm = new FrmTagPartEdit(tagPartEditPanels, findCommentText, replaceCommentText);
+                frm.Text = "Edit Alarm Comments";
                 frm.ShowDialog();
 
-                findText = frm.FindTextSave;
-                replaceText = frm.ReplaceTextSave;
+                findCommentText = frm.FindTextSave;
+                replaceCommentText = frm.ReplaceTextSave;
 
                 UpdateEditorFromModel();
 
@@ -746,6 +782,11 @@ namespace TagManager.UI
                 currentItem.Checked = true;
                 tagStorage.DBLoadMode = (DBLoadMode)Enum.Parse(typeof(DBLoadMode), currentItem.Text, true);
             }
+        }
+
+        private void toolStripMenuExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

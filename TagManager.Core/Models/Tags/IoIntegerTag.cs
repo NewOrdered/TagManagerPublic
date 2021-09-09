@@ -10,10 +10,5 @@ namespace TagManager.Core.Models
             return "I/O Integer";
         }
 
-        //public string Type
-        //{
-        //    get
-        //    { return this.ToString(); }
-        //}
     }
 }

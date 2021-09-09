@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace TagManager.Core.Models
 {
@@ -8,6 +9,8 @@ namespace TagManager.Core.Models
         public Common Common { get; set; } = new Common();
         public Io Io { get; set; } = new Io();
         public Msg Msg { get; set; } = new Msg();
+
+        [XmlIgnore]
         public string Name
         {
             get

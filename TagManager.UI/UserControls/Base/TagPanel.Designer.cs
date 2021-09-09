@@ -31,6 +31,8 @@ namespace TagManager.UI.UserControls
         {
             this.btnSave = new System.Windows.Forms.Button();
             this.lblType = new System.Windows.Forms.Label();
+            this.pBoxTagIcon = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxTagIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
@@ -48,23 +50,33 @@ namespace TagManager.UI.UserControls
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(4, 7);
+            this.lblType.Location = new System.Drawing.Point(26, 7);
             this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(54, 16);
             this.lblType.TabIndex = 6;
             this.lblType.Text = "<Type>";
             // 
+            // pBoxTagIcon
+            // 
+            this.pBoxTagIcon.Location = new System.Drawing.Point(8, 7);
+            this.pBoxTagIcon.Name = "pBoxTagIcon";
+            this.pBoxTagIcon.Size = new System.Drawing.Size(16, 16);
+            this.pBoxTagIcon.TabIndex = 9;
+            this.pBoxTagIcon.TabStop = false;
+            // 
             // TagPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pBoxTagIcon);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblType);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TagPanel";
             this.Size = new System.Drawing.Size(513, 407);
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxTagIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,5 +86,6 @@ namespace TagManager.UI.UserControls
 
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblType;
+        private System.Windows.Forms.PictureBox pBoxTagIcon;
     }
 }

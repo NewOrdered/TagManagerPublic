@@ -9,11 +9,5 @@ namespace TagManager.Core.Models
         {
             return "I/O Real";
         }
-
-        //public string Type
-        //{
-        //    get
-        //    { return this.ToString(); }
-        //}
     }
 }

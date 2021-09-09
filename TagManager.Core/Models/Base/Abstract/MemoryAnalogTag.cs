@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TagManager.Core.Models
 {
@@ -12,6 +9,7 @@ namespace TagManager.Core.Models
         public Common Common { get; set; } = new Common();
         public Analog Analog { get; set; } = new Analog();
 
+        [XmlIgnore]
         public string Name
         {
             get
