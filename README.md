@@ -1,3 +1,5 @@
+NB - This is demo repository! Please DM me if you are interested in the latest version
+
 TagManager is a standalone Winforms app designed to import, edit and export Wonderware InTouch tag dictionary in CSV format
 
 Supports:
